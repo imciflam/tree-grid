@@ -1,14 +1,15 @@
-import React from "react"
-const App = () => {
-  return (
-    <div className='App'>
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
-    </div>
-  )
+import React, { Component } from "react"
+import TreeList from "./components/TreeList"
+import data from "./Storage"
+
+export class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <TreeList />
+      </React.Fragment>
+    )
+  }
 }
 
 export default App

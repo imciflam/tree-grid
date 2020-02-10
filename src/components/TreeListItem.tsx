@@ -1,8 +1,15 @@
 import React, { Component } from "react"
 
-export class TreeListItem extends Component {
+export class TreeListItem extends Component<any, any> {
   render() {
-    return <div></div>
+    console.log(this.props)
+    return (
+      <div>
+        <li>
+          <b>{this.props.name}</b>
+        </li>
+      </div>
+    )
   }
 }
 

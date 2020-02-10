@@ -6,7 +6,7 @@ export class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <TreeList />
+        <TreeList data={data} />
       </React.Fragment>
     )
   }

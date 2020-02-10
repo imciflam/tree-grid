@@ -1,14 +1,15 @@
 import React, { Component } from "react"
+import TreeListItem from "./TreeListItem"
 
-export class TreeList extends Component {
+export class TreeList extends Component<any, any> {
   render() {
+    const data = Object.keys(this.props.data)
+    console.log(data)
     return (
       <div>
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
+        {data.map((item: any, index) => (
+          <TreeListItem name={data[index]} />
+        ))}
       </div>
     )
   }

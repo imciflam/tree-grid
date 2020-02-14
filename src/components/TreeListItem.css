@@ -1,0 +1,6 @@
+.tree-list__item {
+  padding: 10px;
+  background-color: azure;
+  border: 1px solid black;
+  list-style-type: none;
+}

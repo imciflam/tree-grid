@@ -1,16 +1,14 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 
 export class TreeListItem extends Component<any, any> {
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
-      <div>
-        <li>
-          <b>{this.props.name}</b>
-        </li>
-      </div>
-    )
+      <li>
+        <b>{this.props.name}</b>
+      </li>
+    );
   }
 }
 
-export default TreeListItem
+export default TreeListItem;

@@ -1,18 +1,19 @@
-import React, { Component } from "react"
-import TreeListItem from "./TreeListItem"
+import React, { Component } from "react";
+import TreeListItem from "./TreeListItem";
+import "./TreeList.css";
 
 export class TreeList extends Component<any, any> {
   render() {
-    const data = Object.keys(this.props.data)
-    console.log(data)
+    const data = Object.keys(this.props.data);
+    console.log(data);
     return (
-      <div>
+      <ul className="tree-list__container">
         {data.map((item: any, index) => (
-          <TreeListItem name={data[index]} />
+          <TreeListItem className="tree-list__item" name={data[index]} />
         ))}
-      </div>
-    )
+      </ul>
+    );
   }
 }
 
-export default TreeList
+export default TreeList;

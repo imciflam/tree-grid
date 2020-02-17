@@ -2,6 +2,10 @@ import React, { Component } from "react"
 import "./TreeListItem.css"
 
 export class TreeListItem extends Component<any, any> {
+  public constructor(props: any) {
+    super(props)
+  }
+
   public getChildren(name: string) {
     alert(name)
   }

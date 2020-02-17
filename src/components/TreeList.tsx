@@ -4,12 +4,15 @@ import "./TreeList.css"
 
 export class TreeList extends Component<any, any> {
   render() {
-    const data = Object.keys(this.props.data)
-    console.log(data)
+    const data = this.props.data
     return (
       <ul className='tree-list__container'>
-        {data.map((item: any, index) => (
-          <TreeListItem className='tree-list__item' name={data[index]} />
+        {data.map((item: any) => (
+          <TreeListItem
+            className='tree-list__item'
+            key={item.id}
+            name={item.name}
+          />
         ))}
       </ul>
     )

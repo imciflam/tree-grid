@@ -4,3 +4,7 @@
   border: 1px solid black;
   list-style-type: none;
 }
+
+.tree-list__text {
+  padding: 0 10px;
+}

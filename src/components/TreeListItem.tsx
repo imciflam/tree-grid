@@ -12,17 +12,19 @@ export class TreeListItem extends Component<any, any> {
   }
 
   public getChildren(id: number) {
-    console.log(id)
-    //get elements for which current id == parent id
     axios
-      .get(`https://5e4a36256eafb7001488c115.mockapi.io/elements/${id}`)
+      .get(`https://5e4a36256eafb7001488c115.mockapi.io/elements`)
       .then(response => {
-        const childData = response.data
-        console.log(childData)
+        const childData = response.data.filter(
+          (element: any) => element.parentId === id
+        )
         this.setState({
           showPopup: !this.state.showPopup,
           itemChildData: childData
         })
+        if (childData.length === 0) {
+          alert("this item has no children")
+        }
       })
       .catch((error: any) => {
         console.log(error)

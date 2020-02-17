@@ -11,13 +11,9 @@ export class App extends Component<any, any> {
     axios
       .get("https://5e4a36256eafb7001488c115.mockapi.io/elements")
       .then(response => {
-        const fetchedData: any[] = []
-        response.data.forEach((element: any) => {
-          if (element.parentId === null) {
-            fetchedData.push(element)
-          }
-        })
-
+        const fetchedData = response.data.filter(
+          (element: any) => element.parentId === null
+        )
         this.setState({ data: fetchedData })
       })
       .catch((error: any) => {

@@ -25,7 +25,6 @@ export class App extends Component<any, any> {
       })
   }
   render() {
-    console.log(this.state)
     return (
       <React.Fragment>
         <TreeList className='tree-list' data={this.state.data} />

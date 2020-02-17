@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import TreeListItem from "./TreeListItem"
 import "./TreeList.css"
+const TreeListItem = React.lazy(() => import("./TreeListItem"))
 
 export class TreeList extends Component<any, any> {
   render() {
@@ -8,13 +8,15 @@ export class TreeList extends Component<any, any> {
     return (
       <div className='tree-list__container'>
         {data.map((item: any) => (
-          <TreeListItem
-            className='tree-list__item'
-            key={item.id}
-            id={item.id}
-            name={item.name}
-            parentId={item.parentId}
-          />
+          <React.Suspense fallback={<p>Loading...</p>}>
+            <TreeListItem
+              className='tree-list__item'
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              parentId={item.parentId}
+            />
+          </React.Suspense>
         ))}
       </div>
     )

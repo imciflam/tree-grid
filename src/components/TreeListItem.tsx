@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import "./TreeListItem.css"
+import axios from "axios"
 
 export class TreeListItem extends Component<any, any> {
   public constructor(props: any) {
@@ -10,19 +11,31 @@ export class TreeListItem extends Component<any, any> {
     }
   }
 
-  public getChildren(data: any) {
+  public getChildren(id: number) {
+    console.log(id)
+    //get elements for which current id == parent id
+    axios
+      .get(`http://5e4a36256eafb7001488c115.mockapi.io/elements/${id}`)
+      .then(response => {
+        const childData = response.data
+        console.log(childData)
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+
     this.setState({
       showPopup: !this.state.showPopup,
-      itemChildData: { name: "mock" }
+      itemChildData: { name: "mock", parentId: "1" }
     })
   }
 
   render() {
     console.log(this.props)
     return (
-      <li className='tree-list__item'>
-        {this.props.name ? (
-          <button onClick={() => this.getChildren(this.props)}>></button>
+      <div className='tree-list__item'>
+        {this.props.parentId == null ? (
+          <button onClick={() => this.getChildren(this.props.id)}>></button>
         ) : (
           ""
         )}
@@ -32,7 +45,7 @@ export class TreeListItem extends Component<any, any> {
         ) : (
           ""
         )}
-      </li>
+      </div>
     )
   }
 }

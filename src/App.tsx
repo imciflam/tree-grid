@@ -9,7 +9,7 @@ export class App extends Component<any, any> {
   }
   public componentDidMount() {
     axios
-      .get("http://5e4a36256eafb7001488c115.mockapi.io/elements")
+      .get("https://5e4a36256eafb7001488c115.mockapi.io/elements")
       .then(response => {
         const fetchedData: any[] = []
         response.data.forEach((element: any) => {

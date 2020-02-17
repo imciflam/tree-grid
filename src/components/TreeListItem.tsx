@@ -15,7 +15,7 @@ export class TreeListItem extends Component<any, any> {
     console.log(id)
     //get elements for which current id == parent id
     axios
-      .get(`http://5e4a36256eafb7001488c115.mockapi.io/elements/${id}`)
+      .get(`https://5e4a36256eafb7001488c115.mockapi.io/elements/${id}`)
       .then(response => {
         const childData = response.data
         console.log(childData)

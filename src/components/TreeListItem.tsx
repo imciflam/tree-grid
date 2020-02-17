@@ -19,19 +19,17 @@ export class TreeListItem extends Component<any, any> {
       .then(response => {
         const childData = response.data
         console.log(childData)
+        this.setState({
+          showPopup: !this.state.showPopup,
+          itemChildData: childData
+        })
       })
       .catch((error: any) => {
         console.log(error)
       })
-
-    this.setState({
-      showPopup: !this.state.showPopup,
-      itemChildData: { name: "mock", parentId: "1" }
-    })
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className='tree-list__item'>
         {this.props.parentId == null ? (
@@ -40,11 +38,19 @@ export class TreeListItem extends Component<any, any> {
           ""
         )}
         <span className='tree-list__text'>{this.props.name}</span>
-        {this.state.showPopup ? (
-          <TreeListItem {...this.state.itemChildData} />
-        ) : (
-          ""
-        )}
+        {this.state.showPopup && this.state.itemChildData
+          ? this.state.itemChildData.map((element: any) => {
+              return (
+                <TreeListItem
+                  className='tree-list__item'
+                  key={element.id}
+                  id={element.id}
+                  name={element.name}
+                  parentId={element.parentId}
+                />
+              )
+            })
+          : ""}
       </div>
     )
   }

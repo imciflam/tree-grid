@@ -13,7 +13,7 @@ export class TreeListItem extends Component<any, any> {
   public getChildren(data: any) {
     this.setState({
       showPopup: !this.state.showPopup,
-      itemChildData: data
+      itemChildData: { name: "mock" }
     })
   }
 
@@ -27,7 +27,11 @@ export class TreeListItem extends Component<any, any> {
           ""
         )}
         <span className='tree-list__text'>{this.props.name}</span>
-        {this.state.showPopup ? <div>111</div> : ""}
+        {this.state.showPopup ? (
+          <TreeListItem {...this.state.itemChildData} />
+        ) : (
+          ""
+        )}
       </li>
     )
   }

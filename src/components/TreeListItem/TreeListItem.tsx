@@ -34,7 +34,12 @@ export class TreeListItem extends Component<any, any> {
   render() {
     return (
       <div className="tree-list__item">
-        <button onClick={() => this.getChildren(this.props.id)}>></button>
+        <button
+          className="tree-list__button"
+          onClick={() => this.getChildren(this.props.id)}
+        >
+          ⮡
+        </button>
         <span className="tree-list__text">{this.props.name}</span>
         {this.state.showPopup && this.state.itemChildData
           ? this.state.itemChildData.map((element: any) => {

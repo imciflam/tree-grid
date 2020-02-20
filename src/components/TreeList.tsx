@@ -1,19 +1,26 @@
-import React, { Component } from "react";
-import TreeListItem from "./TreeListItem";
-import "./TreeList.css";
+import React, { Component } from "react"
+import "./TreeList.css"
+const TreeListItem = React.lazy(() => import("./TreeListItem"))
 
 export class TreeList extends Component<any, any> {
   render() {
-    const data = Object.keys(this.props.data);
-    console.log(data);
+    const data = this.props.data
     return (
-      <ul className="tree-list__container">
-        {data.map((item: any, index) => (
-          <TreeListItem className="tree-list__item" name={data[index]} />
+      <div className='tree-list__container'>
+        {data.map((item: any) => (
+          <React.Suspense key={item.id} fallback={<p> Loading...</p>}>
+            <TreeListItem
+              className='tree-list__item'
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              parentId={item.parentId}
+            />
+          </React.Suspense>
         ))}
-      </ul>
-    );
+      </div>
+    )
   }
 }
 
-export default TreeList;
+export default TreeList

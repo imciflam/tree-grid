@@ -45,7 +45,6 @@ export class TreeListItem extends Component<any, any> {
           ? this.state.itemChildData.map((element: any) => {
               return (
                 <TreeListItem
-                  className="tree-list__item"
                   key={element.id}
                   id={element.id}
                   name={element.name}

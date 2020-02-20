@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TreeList from "./components/TreeList/TreeList";
 import axios from "axios";
+import "./App.css";
 
 export class App extends Component<any, any> {
   constructor(props: any) {

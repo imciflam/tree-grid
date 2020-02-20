@@ -1,14 +1,14 @@
-import React, { Component } from "react"
-import "./TreeListItem.css"
-import axios from "axios"
+import React, { Component } from "react";
+import "./TreeListItem.css";
+import axios from "axios";
 
 export class TreeListItem extends Component<any, any> {
   public constructor(props: any) {
-    super(props)
+    super(props);
     this.state = {
       showPopup: false,
       itemChildData: []
-    }
+    };
   }
 
   public getChildren(id: number) {
@@ -17,41 +17,41 @@ export class TreeListItem extends Component<any, any> {
       .then(response => {
         const childData = response.data.filter(
           (element: any) => element.parentId === id
-        )
+        );
         this.setState({
           showPopup: !this.state.showPopup,
           itemChildData: childData
-        })
+        });
         if (childData.length === 0) {
-          alert("this item has no children")
+          alert("this item has no children");
         }
       })
       .catch((error: any) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 
   render() {
     return (
-      <div className='tree-list__item'>
+      <div className="tree-list__item">
         <button onClick={() => this.getChildren(this.props.id)}>></button>
-        <span className='tree-list__text'>{this.props.name}</span>
+        <span className="tree-list__text">{this.props.name}</span>
         {this.state.showPopup && this.state.itemChildData
           ? this.state.itemChildData.map((element: any) => {
               return (
                 <TreeListItem
-                  className='tree-list__item'
+                  className="tree-list__item"
                   key={element.id}
                   id={element.id}
                   name={element.name}
                   parentId={element.parentId}
                 />
-              )
+              );
             })
           : ""}
       </div>
-    )
+    );
   }
 }
 
-export default TreeListItem
+export default TreeListItem;

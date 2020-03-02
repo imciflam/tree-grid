@@ -1,1 +1,0 @@
-{"version":3,"sources":["TreeListItem.css"],"names":[],"mappings":"AAAA,iBACE,YAAa,CACb,sBAAuB,CACvB,qBAAuB,CACvB,oBACF,CAEA,iBACE,cACF","file":"3.aab594f4.chunk.css","sourcesContent":[".tree-list__item {\r\n  padding: 10px;\r\n  background-color: azure;\r\n  border: 1px solid black;\r\n  list-style-type: none;\r\n}\r\n\r\n.tree-list__text {\r\n  padding: 0 10px;\r\n}\r\n"]}

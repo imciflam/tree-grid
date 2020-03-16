@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 export class Attribute extends Component<any, any> {
-  renderCurrent(data: any) {
+  renderCurrent = (data: any) => {
     let result = []
     if (data && data.length !== 0) {
       for (let element of data) {

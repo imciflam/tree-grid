@@ -10,7 +10,7 @@ export class App extends Component<any, any> {
     this.state = { data: [] }
   }
 
-  renderCurrent(data: any) {
+  renderCurrent = (data: any) => {
     if (data && data.length !== 0) {
       let result = []
       for (let element in data) {

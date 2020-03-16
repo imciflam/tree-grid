@@ -1,12 +1,24 @@
 import React, { Component } from "react"
 
 export class Child extends Component<any, any> {
-  renderCurrent(data: any) {
+  onClick = (name: string) => {
+    let entity = localStorage.getItem(name)
+    if (!entity) {
+      // axios call
+    }
+  }
+
+  renderCurrent = (data: any) => {
     let result = []
     if (data && data.length !== 0) {
       for (let element of data) {
         result.push(
-          <div style={{ border: "1px solid black", padding: "10px" }}>
+          <div
+            style={{ border: "1px solid black", padding: "10px" }}
+            onClick={() => {
+              this.onClick(element._Name)
+            }}
+          >
             {element._Description}
           </div>
         )

@@ -2,7 +2,13 @@ import React, { Component } from "react"
 
 export class Parent extends Component<any, any> {
   render() {
-    return <div>Parent</div>
+    console.log(this.props)
+    return (
+      <div>
+        <h1>Parent</h1>
+        <div>content</div>
+      </div>
+    )
   }
 }
 

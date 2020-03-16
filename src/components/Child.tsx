@@ -2,7 +2,13 @@ import React, { Component } from "react"
 
 export class Child extends Component<any, any> {
   render() {
-    return <div>Child</div>
+    console.log(this.props)
+    return (
+      <div>
+        <h1>Child</h1>
+        <div>content</div>
+      </div>
+    )
   }
 }
 

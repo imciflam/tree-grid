@@ -36,6 +36,10 @@ export class App extends Component<any, any> {
   public componentDidMount() {
     axios.get("1.json").then(response => {
       this.setState({ data: response.data.Entity.Fields })
+      localStorage.setItem(
+        response.data.Entity._Name,
+        JSON.stringify(response.data.Entity)
+      )
     })
   }
   render() {

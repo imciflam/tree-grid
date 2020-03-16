@@ -5,7 +5,11 @@ export class Child extends Component<any, any> {
     let result = []
     if (data && data.length !== 0) {
       for (let element of data) {
-        result.push(<div>{element._Description}</div>)
+        result.push(
+          <div style={{ border: "1px solid black", padding: "10px" }}>
+            {element._Description}
+          </div>
+        )
       }
     }
     return result
@@ -14,7 +18,6 @@ export class Child extends Component<any, any> {
     console.log(this.props)
     return (
       <div>
-        <h1>Child</h1>
         <div>{this.renderCurrent(this.props.data)}</div>
       </div>
     )

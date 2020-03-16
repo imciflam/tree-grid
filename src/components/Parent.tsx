@@ -4,8 +4,9 @@ export class Parent extends Component<any, any> {
   render() {
     console.log(this.props)
     return (
-      <div>
-        <h1>Parent</h1>
+      <div
+        style={{ color: "blue", border: "1px solid black", padding: "10px" }}
+      >
         {this.props.data._Description}
       </div>
     )

@@ -5,7 +5,11 @@ export class Attribute extends Component<any, any> {
     let result = []
     if (data && data.length !== 0) {
       for (let element of data) {
-        result.push(<div>{element._Description}</div>)
+        result.push(
+          <div style={{ border: "1px solid black", padding: "10px" }}>
+            {element._Description}
+          </div>
+        )
       }
     }
     return result

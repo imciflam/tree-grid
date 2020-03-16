@@ -16,8 +16,9 @@ export class Attribute extends Component<any, any> {
     console.log(this.props)
     return (
       <div>
-        <h1>Attribute</h1>
-        <div>{this.renderCurrent(this.props.data)}</div>
+        <div style={{ opacity: 0.8 }}>
+          {this.renderCurrent(this.props.data)}
+        </div>
       </div>
     )
   }

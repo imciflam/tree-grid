@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import TreeList from "./components/TreeList/TreeList"
 import axios from "axios"
 
 export class App extends Component<any, any> {

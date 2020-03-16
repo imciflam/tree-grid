@@ -15,7 +15,6 @@ export class Child extends Component<any, any> {
     return (
       <div>
         <h1>Child</h1>
-        <div>content</div>
         <div>{this.renderCurrent(this.props.data)}</div>
       </div>
     )

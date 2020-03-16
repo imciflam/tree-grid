@@ -6,7 +6,7 @@ export class Parent extends Component<any, any> {
     return (
       <div>
         <h1>Parent</h1>
-        <div>content</div>
+        {this.props.data._Description}
       </div>
     )
   }

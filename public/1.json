@@ -32,7 +32,8 @@
       ],
       "Parent": {
         "_Name": "Entities",
-        "_Index": "3040009"
+        "_Index": "3040009",
+        "_Description": "Сущность метаданных"
       },
       "Child": [
         {

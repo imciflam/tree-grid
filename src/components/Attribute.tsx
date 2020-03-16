@@ -10,12 +10,13 @@ export class Attribute extends Component<any, any> {
     }
     return result
   }
+
+  // disable onclick
   render() {
     console.log(this.props)
     return (
       <div>
         <h1>Attribute</h1>
-        <div>content</div>
         <div>{this.renderCurrent(this.props.data)}</div>
       </div>
     )

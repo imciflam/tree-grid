@@ -44,10 +44,7 @@ export class App extends Component<any, any> {
   }
   render() {
     return (
-      <React.Fragment>
-        placeholder
-        <div>{this.renderCurrent(this.state.data)}</div>
-      </React.Fragment>
+      <React.Fragment>{this.renderCurrent(this.state.data)}</React.Fragment>
     )
   }
 }

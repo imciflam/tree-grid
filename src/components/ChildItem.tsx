@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Children from "./Children";
+import Attribute from "./Attribute";
+import Parent from "./Parent";
 
 export class ChildItem extends Component<any, any> {
   constructor(props: any) {
@@ -7,13 +10,35 @@ export class ChildItem extends Component<any, any> {
     this.state = { data: [] };
   }
 
+  renderCurrent = (data: any) => {
+    if (data && data.length !== 0) {
+      let result = [];
+      for (let element in data) {
+        switch (element) {
+          case "Parent":
+            result.push(<Parent data={data[element]} />); // bracket notation, because it's variable
+            break;
+          case "Child":
+            result.push(<Children data={data[element]} />);
+            break;
+          case "Attribute":
+            result.push(<Attribute data={data[element]} />);
+            break;
+          default:
+            result.push(<div>unknown</div>);
+            break;
+        }
+      }
+      return result;
+    }
+  };
+
   onClick = (name: string) => {
     let entity = localStorage.getItem(name);
     if (!entity) {
       axios
         .get(`${name}.json`)
         .then(response => {
-          this.setState({ data: response.data.Entity.Fields });
           localStorage.setItem(
             response.data.Entity._Name,
             JSON.stringify(response.data.Entity)
@@ -27,19 +52,26 @@ export class ChildItem extends Component<any, any> {
           }
         });
     }
-    console.log(entity);
+    if (entity !== null) {
+      let parsedData = JSON.parse(entity);
+      let childrenData = parsedData.Fields;
+      this.setState({ data: childrenData });
+    }
   };
 
   render() {
     return (
-      <div
-        style={{ border: "1px solid black", padding: "10px" }}
-        onClick={() => {
-          this.onClick(this.props._Type);
-        }}
-      >
-        <i>{this.props._Description}</i>
-      </div>
+      <React.Fragment>
+        <div
+          style={{ border: "1px solid black", padding: "10px" }}
+          onClick={() => {
+            this.onClick(this.props._Type);
+          }}
+        >
+          <i>{this.props._Description}</i>
+        </div>
+        {this.renderCurrent(this.state.data)}
+      </React.Fragment>
     );
   }
 }

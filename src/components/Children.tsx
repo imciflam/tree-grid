@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ChildItem from "./ChildItem";
 
-export class Child extends Component<any, any> {
+export class Children extends Component<any, any> {
   renderCurrent = (data: any) => {
     let result = [];
     if (data && data.length !== 0) {
@@ -26,4 +26,4 @@ export class Child extends Component<any, any> {
   }
 }
 
-export default Child;
+export default Children;

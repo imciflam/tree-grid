@@ -1,0 +1,41 @@
+{
+  "Entity": {
+    "Fields": {
+      "Attribute": [
+        {
+          "_Name": "Meaning",
+          "_Index": "3040004",
+          "_Type": "guid",
+          "_Description": "Значение"
+        },
+        {
+          "_Name": "ID",
+          "_Index": "3040005",
+          "_Type": "string",
+          "_Description": "Идентификатор",
+          "_CharacterMaximumLength": "128",
+          "_Required": "1"
+        },
+        {
+          "_Name": "Name",
+          "_Index": "3040012",
+          "_Type": "text",
+          "_Description": "Наименование"
+        }
+      ],
+      "Parent": {
+        "_Name": "GENERIC_REPORT",
+        "_Index": "3040009",
+        "_Description": "Обобщенная сущность ",
+        "_Type": "VCLib.GENERIC_REPORT",
+        "_Required": "1"
+      },
+      "Child": []
+    },
+    "_Schema": "VCLib",
+    "_Name": "GENERATOR_PARAMS",
+    "_Description": "Параметры генератора ",
+    "_DNAttributes": "{Name}",
+    "_DisplayName": "{0}"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "Entity": {
+    "Fields": {
+      "Attribute": [
+        {
+          "_Name": "ID",
+          "_Index": "3040005",
+          "_Type": "string",
+          "_Description": "Идентификатор",
+          "_CharacterMaximumLength": "128",
+          "_Required": "1"
+        },
+        {
+          "_Name": "Name",
+          "_Index": "3040012",
+          "_Type": "text",
+          "_Description": "Описание"
+        },
+        {
+          "_Name": "Path",
+          "_Index": "3040012",
+          "_Type": "text",
+          "_Description": "Путь до генератора"
+        },
+        {
+          "_Name": "Link",
+          "_Index": "3040012",
+          "_Type": "text",
+          "_Description": "Ссылка"
+        }
+      ],
+      "Parent": {
+        "_Name": "GENERIC_REPORT",
+        "_Index": "3040009",
+        "_Description": "Обобщенная сущность ",
+        "_Type": "VCLib.GENERIC_REPORT",
+        "_Required": "1"
+      },
+      "Child": [
+        {
+          "_Name": "Group",
+          "_Index": "3040011",
+          "_Type": "VCLib.GROUP",
+          "_Description": "Группировщик",
+          "_ChildAttribute": "GeneratorLink"
+        },
+        {
+          "_Name": "Report",
+          "_Index": "3040016",
+          "_Type": "VCLib.REPORT",
+          "_Description": "Отчет",
+          "_ChildAttribute": "GeneratorLink"
+        }
+      ]
+    },
+    "_Schema": "VCLib",
+    "_Name": "GENERATOR_LINK",
+    "_Description": "Используемые генераторы ",
+    "_DNAttributes": "{Name}",
+    "_DisplayName": "{0}"
+  }
+}

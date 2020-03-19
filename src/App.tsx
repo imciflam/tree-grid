@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Attribute from "./components/Attribute";
-import Child from "./components/Child";
+import Children from "./components/Children";
 import Parent from "./components/Parent";
 
 export class App extends Component<any, any> {
@@ -19,7 +19,7 @@ export class App extends Component<any, any> {
             result.push(<Parent data={data[element]} />); // bracket notation, because it's variable
             break;
           case "Child":
-            result.push(<Child data={data[element]} />);
+            result.push(<Children data={data[element]} />);
             break;
           case "Attribute":
             result.push(<Attribute data={data[element]} />);

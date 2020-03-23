@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Attribute from "./components/Attribute";
 import Children from "./components/Children";
 import Parent from "./components/Parent";
@@ -34,11 +33,11 @@ export class App extends Component<any, any> {
   };
 
   public componentDidMount() {
-    axios.get("GENERIC_REPORT.json").then(response => {
-      this.setState({ data: response.data.Entity.Fields });
+    import("./GENERIC_REPORT.json").then(response => {
+      this.setState({ data: response.Entity.Fields });
       localStorage.setItem(
-        response.data.Entity._Name,
-        JSON.stringify(response.data.Entity)
+        response.Entity._Name,
+        JSON.stringify(response.Entity)
       );
     });
   }

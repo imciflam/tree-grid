@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Children from "./Children";
 import Attribute from "./Attribute";
 import Parent from "./Parent";
@@ -36,20 +35,17 @@ export class ChildItem extends Component<any, any> {
   onClick = (name: string) => {
     let entity = localStorage.getItem(name);
     if (!entity) {
-      axios
-        .get(`${name}.json`)
+      import(`../${name}`)
         .then(response => {
           localStorage.setItem(
-            response.data.Entity._Name,
-            JSON.stringify(response.data.Entity)
+            response.Entity._Name,
+            JSON.stringify(response.Entity)
           );
           entity = localStorage.getItem(name);
         })
         .catch(error => {
           console.log(error);
-          if (error.response.status === 404) {
-            alert("no data for this entity");
-          }
+          alert("no data for this entity");
         });
     }
     if (entity !== null) {

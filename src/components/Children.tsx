@@ -17,7 +17,6 @@ export class Children extends Component<any, any> {
     return result;
   };
   render() {
-    console.log(this.props);
     return (
       <div>
         <div>{this.renderCurrent(this.props.data)}</div>

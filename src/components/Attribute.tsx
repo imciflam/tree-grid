@@ -6,9 +6,7 @@ export class Attribute extends Component<any, any> {
     if (data && data.length !== 0) {
       for (let element of data) {
         result.push(
-          <div style={{ border: "1px solid black", padding: "10px" }}>
-            {element._Description}
-          </div>
+          <div className="attribute-item">{element._Description}</div>
         );
       }
     }
@@ -19,9 +17,7 @@ export class Attribute extends Component<any, any> {
   render() {
     return (
       <div>
-        <div style={{ opacity: 0.8 }}>
-          {this.renderCurrent(this.props.data)}
-        </div>
+        <div>{this.renderCurrent(this.props.data)}</div>
       </div>
     );
   }

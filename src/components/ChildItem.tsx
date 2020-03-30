@@ -61,7 +61,6 @@ export class ChildItem extends Component<any, any> {
   };
 
   render() {
-    console.log(this.state.data);
     return (
       <React.Fragment>
         <div

@@ -4,15 +4,25 @@
 }
 
 .child-item--open::before {
-  content: "- ";
+  content: url(minus.svg);
 }
 
 .child-item--closed::before {
-  content: "+ ";
+  content: url(plus.svg);
 }
 
 .parent-item {
   color: blue;
   border: 1px solid black;
   padding: 10px;
+}
+
+.attribute-item {
+  opacity: 0.8;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.attribute-item::before {
+  content: url(button.svg);
 }

@@ -70,6 +70,7 @@ export class ChildItem extends Component<any, any> {
               ? "child-item--open"
               : "child-item--closed")
           }
+          style={{ marginRight: "10px" }}
           onClick={() => {
             this.onClick(this.props._Type);
           }}

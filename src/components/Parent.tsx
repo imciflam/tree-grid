@@ -62,7 +62,12 @@ export class Parent extends Component<any, any> {
     return (
       <React.Fragment>
         <div
-          className="parent-item"
+          className={
+            "parent-item " +
+            (this.state.data.length !== 0
+              ? "parent-item--open"
+              : "parent-item--closed")
+          }
           onClick={() => {
             this.onClick(this.props.data._Name);
           }}

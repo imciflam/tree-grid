@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Children from "./Children";
 import Attribute from "./Attribute";
 import Parent from "./Parent";
+import "./App.css";
 
 export class ChildItem extends Component<any, any> {
   constructor(props: any) {
@@ -33,25 +34,29 @@ export class ChildItem extends Component<any, any> {
   };
 
   onClick = (name: string) => {
-    let entity = localStorage.getItem(name);
-    if (!entity) {
-      import(`../${name}`)
-        .then(response => {
-          localStorage.setItem(
-            response.Entity._Name,
-            JSON.stringify(response.Entity)
-          );
-          entity = localStorage.getItem(name);
-        })
-        .catch(error => {
-          console.log(error);
-          alert("no data for this entity");
-        });
-    }
-    if (entity !== null) {
-      let parsedData = JSON.parse(entity);
-      let childrenData = parsedData.Fields;
-      this.setState({ data: childrenData });
+    if (this.state.data.length === 0) {
+      let entity = localStorage.getItem(name);
+      if (!entity) {
+        import(`../${name}`)
+          .then(response => {
+            localStorage.setItem(
+              response.Entity._Name,
+              JSON.stringify(response.Entity)
+            );
+            entity = localStorage.getItem(name);
+          })
+          .catch(error => {
+            console.log(error);
+            alert("no data for this entity");
+          });
+      }
+      if (entity !== null) {
+        let parsedData = JSON.parse(entity);
+        let childrenData = parsedData.Fields;
+        this.setState({ data: childrenData });
+      }
+    } else {
+      this.setState({ data: [] });
     }
   };
 
@@ -59,7 +64,7 @@ export class ChildItem extends Component<any, any> {
     return (
       <React.Fragment>
         <div
-          style={{ border: "1px solid black", padding: "10px" }}
+          className="tree-item"
           onClick={() => {
             this.onClick(this.props._Type);
           }}

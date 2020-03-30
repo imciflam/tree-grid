@@ -32,25 +32,29 @@ export class Parent extends Component<any, any> {
   };
 
   onClick = (name: string) => {
-    let entity = localStorage.getItem(name);
-    if (!entity) {
-      import(`../${name}`)
-        .then(response => {
-          localStorage.setItem(
-            response.Entity._Name,
-            JSON.stringify(response.Entity)
-          );
-          entity = localStorage.getItem(name);
-        })
-        .catch(error => {
-          console.log(error);
-          alert("no data for this entity");
-        });
-    }
-    if (entity !== null) {
-      let parsedData = JSON.parse(entity);
-      let childrenData = parsedData.Fields;
-      this.setState({ data: childrenData });
+    if (this.state.data.length === 0) {
+      let entity = localStorage.getItem(name);
+      if (!entity) {
+        import(`../${name}`)
+          .then(response => {
+            localStorage.setItem(
+              response.Entity._Name,
+              JSON.stringify(response.Entity)
+            );
+            entity = localStorage.getItem(name);
+          })
+          .catch(error => {
+            console.log(error);
+            alert("no data for this entity");
+          });
+      }
+      if (entity !== null) {
+        let parsedData = JSON.parse(entity);
+        let childrenData = parsedData.Fields;
+        this.setState({ data: childrenData });
+      }
+    } else {
+      this.setState({ data: [] });
     }
   };
 

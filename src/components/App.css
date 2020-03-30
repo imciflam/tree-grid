@@ -1,0 +1,18 @@
+.child-item {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.child-item--open::before {
+  content: "- ";
+}
+
+.child-item--closed::before {
+  content: "+ ";
+}
+
+.parent-item {
+  color: blue;
+  border: 1px solid black;
+  padding: 10px;
+}

@@ -61,10 +61,16 @@ export class ChildItem extends Component<any, any> {
   };
 
   render() {
+    console.log(this.state.data);
     return (
       <React.Fragment>
         <div
-          className="tree-item"
+          className={
+            "child-item " +
+            (this.state.data.length !== 0
+              ? "child-item--open"
+              : "child-item--closed")
+          }
           onClick={() => {
             this.onClick(this.props._Type);
           }}

@@ -62,7 +62,7 @@ export class Parent extends Component<any, any> {
     return (
       <React.Fragment>
         <div
-          style={{ color: "blue", border: "1px solid black", padding: "10px" }}
+          className="parent-item"
           onClick={() => {
             this.onClick(this.props.data._Name);
           }}

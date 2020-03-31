@@ -7,22 +7,27 @@ import "./App.css";
 export class ChildItem extends Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: [], order: 0 };
   }
 
-  renderCurrent = (data: any) => {
+  componentWillUnmount() {
+    console.log("childitem unmount");
+  }
+
+  renderCurrent = (data: any, marginData: number) => {
+    console.log(this.state.order);
     if (data && data.length !== 0) {
       let result = [];
       for (let element in data) {
         switch (element) {
           case "Parent":
-            result.push(<Parent data={data[element]} />); // bracket notation, because it's variable
+            result.push(<Parent data={data[element]} margin={marginData} />); // bracket notation, because it's variable
             break;
           case "Child":
-            result.push(<Children data={data[element]} />);
+            result.push(<Children data={data[element]} margin={marginData} />);
             break;
           case "Attribute":
-            result.push(<Attribute data={data[element]} />);
+            result.push(<Attribute data={data[element]} margin={marginData} />);
             break;
           default:
             result.push(<div>unknown</div>);
@@ -33,7 +38,7 @@ export class ChildItem extends Component<any, any> {
     }
   };
 
-  onClick = (name: string) => {
+  onClick = (name: string, order: any) => {
     if (this.state.data.length === 0) {
       let entity = localStorage.getItem(name);
       if (!entity) {
@@ -53,7 +58,7 @@ export class ChildItem extends Component<any, any> {
       if (entity !== null) {
         let parsedData = JSON.parse(entity);
         let childrenData = parsedData.Fields;
-        this.setState({ data: childrenData });
+        this.setState({ data: childrenData, order: order + 1 });
       }
     } else {
       this.setState({ data: [] });
@@ -61,6 +66,7 @@ export class ChildItem extends Component<any, any> {
   };
 
   render() {
+    console.log(this.props.margin);
     return (
       <React.Fragment>
         <div
@@ -70,14 +76,14 @@ export class ChildItem extends Component<any, any> {
               ? "child-item--open"
               : "child-item--closed")
           }
-          style={{ marginRight: "10px" }}
+          style={{ marginLeft: this.props.margin }}
           onClick={() => {
-            this.onClick(this.props._Type);
+            this.onClick(this.props._Type, this.state.order);
           }}
         >
           <i>{this.props._Description}</i>
         </div>
-        {this.renderCurrent(this.state.data)}
+        {this.renderCurrent(this.state.data, this.state.order + 10)}
       </React.Fragment>
     );
   }

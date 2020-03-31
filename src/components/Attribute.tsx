@@ -17,7 +17,9 @@ export class Attribute extends Component<any, any> {
   render() {
     return (
       <div>
-        <div>{this.renderCurrent(this.props.data)}</div>
+        <div style={{ marginLeft: this.props.margin }}>
+          {this.renderCurrent(this.props.data)}
+        </div>
       </div>
     );
   }

@@ -68,6 +68,7 @@ export class Parent extends Component<any, any> {
               ? "parent-item--open"
               : "parent-item--closed")
           }
+          style={{ marginLeft: this.props.margin }}
           onClick={() => {
             this.onClick(this.props.data._Name);
           }}

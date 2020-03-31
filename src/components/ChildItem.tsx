@@ -15,8 +15,8 @@ export class ChildItem extends Component<any, any> {
   }
 
   renderCurrent = (data: any, marginData: number) => {
-    console.log(this.state.order);
-    if (data && data.length !== 0) {
+    console.log(marginData);
+    if (data && data.length !== 0 && marginData) {
       let result = [];
       for (let element in data) {
         switch (element) {
@@ -66,7 +66,6 @@ export class ChildItem extends Component<any, any> {
   };
 
   render() {
-    console.log(this.props.margin);
     return (
       <React.Fragment>
         <div
@@ -83,7 +82,7 @@ export class ChildItem extends Component<any, any> {
         >
           <i>{this.props._Description}</i>
         </div>
-        <div style={{ marginLeft: this.props.margin + 10 }}>
+        <div style={{ marginLeft: this.props.margin }}>
           {this.renderCurrent(this.state.data, this.state.order + 10)}
         </div>
       </React.Fragment>

@@ -83,7 +83,9 @@ export class ChildItem extends Component<any, any> {
         >
           <i>{this.props._Description}</i>
         </div>
-        {this.renderCurrent(this.state.data, this.state.order + 10)}
+        <div style={{ marginLeft: this.props.margin + 10 }}>
+          {this.renderCurrent(this.state.data, this.state.order + 10)}
+        </div>
       </React.Fragment>
     );
   }

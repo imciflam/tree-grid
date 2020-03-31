@@ -1,0 +1,35 @@
+{
+  "Entity": {
+    "Fields": {
+      "Attribute": [
+        {
+          "_Name": "Group",
+          "_Index": "3040012",
+          "_Type": "text",
+          "_Description": "Группа"
+        }
+      ],
+      "Parent": {
+        "_Name": "GENERATOR_LINK",
+        "_Index": "3040009",
+        "_Description": "Используемые генераторы ",
+        "_Type": "VCLib.GENERATOR_LINK",
+        "_Required": "1"
+      },
+      "Child": [
+        {
+          "_Name": "Random",
+          "_Index": "3040011",
+          "_Type": "VCLib.Random",
+          "_Description": "Random",
+          "_ChildAttribute": "Random"
+        }
+      ]
+    },
+    "_Schema": "VCLib",
+    "_Name": "GROUP",
+    "_Description": "Группировщик ",
+    "_DNAttributes": "{Name}",
+    "_DisplayName": "{0}"
+  }
+}

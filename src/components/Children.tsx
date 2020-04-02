@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import ChildItem from "./ChildItem";
 
-export class Children extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
-  }
+export class Children extends Component<any, any> { 
 
   componentWillUnmount() {
     console.log("children unmount");

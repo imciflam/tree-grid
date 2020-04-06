@@ -75,7 +75,9 @@ export class Parent extends Component<any, any> {
         >
           {this.props.data._Description}
         </div>
-        {this.renderCurrent(this.state.data)}
+        <div style={{ marginLeft: "21px" }}>
+          {this.renderCurrent(this.state.data)}
+        </div>
       </React.Fragment>
     );
   }

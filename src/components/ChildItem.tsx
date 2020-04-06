@@ -38,7 +38,7 @@ export class ChildItem extends Component<any, any> {
     }
   };
 
-  onClick = (name: string) => {
+  onClick = (name: string, order: any) => {
     if (this.state.data.length === 0) {
       let entity = localStorage.getItem(name);
       if (!entity) {
@@ -58,7 +58,7 @@ export class ChildItem extends Component<any, any> {
       if (entity !== null) {
         let parsedData = JSON.parse(entity);
         let childrenData = parsedData.Fields;
-        this.setState({ data: childrenData });
+        this.setState({ data: childrenData, order: order + 1 });
       }
     } else {
       this.setState({ data: [] });
@@ -75,8 +75,9 @@ export class ChildItem extends Component<any, any> {
               ? "child-item--open"
               : "child-item--closed")
           }
+          style={{ marginLeft: this.props.margin }}
           onClick={() => {
-            this.onClick(this.props._Type);
+            this.onClick(this.props._Type, this.state.order);
           }}
         >
           <i>{this.props._Description}</i>

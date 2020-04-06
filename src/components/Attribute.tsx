@@ -15,7 +15,6 @@ export class Attribute extends Component<any, {}> {
     return result;
   };
 
-  // disable onclick
   render() {
     const { data, margin } = this.props;
     return <div style={{ marginLeft: margin }}>{this.renderCurrent(data)}</div>;

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 
-export class Attribute extends Component<any, any> {
+export class Attribute extends Component<any, {}> {
   renderCurrent = (data: any) => {
-    let result = [];
-    if (data && data.length !== 0) {
-      for (let element of data) {
+    const result = [];
+    if (data) {
+      for (const [index, element] of data.entries()) {
         result.push(
-          <div className="attribute-item">{element._Description}</div>
+          <div key={index} className="attribute-item">
+            {element._Description}
+          </div>
         );
       }
     }
@@ -15,13 +17,8 @@ export class Attribute extends Component<any, any> {
 
   // disable onclick
   render() {
-    return (
-      <div>
-        <div style={{ marginLeft: this.props.margin }}>
-          {this.renderCurrent(this.props.data)}
-        </div>
-      </div>
-    );
+    const { data, margin } = this.props;
+    return <div style={{ marginLeft: margin }}>{this.renderCurrent(data)}</div>;
   }
 }
 

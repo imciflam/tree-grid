@@ -7,30 +7,33 @@ import "./App.css";
 export class ChildItem extends Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.state = { data: [], order: 0 };
-  }
-
-  componentWillUnmount() {
-    console.log("childitem unmount");
+    this.state = { data: false, order: 0 };
   }
 
   renderCurrent = (data: any, marginData: number) => {
-    console.log(marginData);
-    if (data && data.length !== 0 && marginData) {
-      let result = [];
-      for (let element in data) {
+    if (data && marginData) {
+      const result = [];
+      for (const [index, [element, value]] of Object.entries(
+        Object.entries(data)
+      )) {
         switch (element) {
           case "Parent":
-            result.push(<Parent data={data[element]} margin={marginData} />); // bracket notation, because it's variable
+            result.push(
+              <Parent data={value} margin={marginData} key={index} />
+            );
             break;
           case "Child":
-            result.push(<Children data={data[element]} margin={marginData} />);
+            result.push(
+              <Children data={value} margin={marginData} key={index} />
+            );
             break;
           case "Attribute":
-            result.push(<Attribute data={data[element]} margin={marginData} />);
+            result.push(
+              <Attribute data={value} margin={marginData} key={index} />
+            );
             break;
           default:
-            result.push(<div>unknown</div>);
+            result.push(<React.Fragment>unknown</React.Fragment>);
             break;
         }
       }
@@ -38,8 +41,8 @@ export class ChildItem extends Component<any, any> {
     }
   };
 
-  onClick = (name: string, order: any) => {
-    if (this.state.data.length === 0) {
+  onClick = (name: string, order: number) => {
+    if (!this.state.data) {
       let entity = localStorage.getItem(name);
       if (!entity) {
         import(`../${name}`)
@@ -61,7 +64,7 @@ export class ChildItem extends Component<any, any> {
         this.setState({ data: childrenData, order: order + 1 });
       }
     } else {
-      this.setState({ data: [] });
+      this.setState({ data: false });
     }
   };
 
@@ -71,9 +74,7 @@ export class ChildItem extends Component<any, any> {
         <div
           className={
             "child-item " +
-            (this.state.data.length !== 0
-              ? "child-item--open"
-              : "child-item--closed")
+            (this.state.data ? "child-item--open" : "child-item--closed")
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {

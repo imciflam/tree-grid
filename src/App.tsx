@@ -3,28 +3,29 @@ import Attribute from "./components/Attribute";
 import Children from "./components/Children";
 import Parent from "./components/Parent";
 
-export class App extends Component<any, any> {
+export class App extends Component<{}, any> {
   constructor(props: any) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: false };
   }
 
   renderCurrent = (data: any) => {
-    if (data && data.length !== 0) {
-      let result = [];
-      for (let element in data) {
+    if (data) {
+      const result = [];
+      for (const [index, [element, value]] of Object.entries(
+        Object.entries(data)
+      )) {
         switch (element) {
           case "Parent":
-            result.push(<Parent data={data[element]} />); // bracket notation, because it's variable
+            result.push(<Parent data={value} key={index} />); // bracket notation, because it's a variable
             break;
           case "Child":
-            result.push(<Children data={data[element]} />);
+            result.push(<Children data={value} key={index} />);
             break;
           case "Attribute":
-            result.push(<Attribute data={data[element]} />);
+            result.push(<Attribute data={value} key={index} />);
             break;
           default:
-            result.push(<div>unknown</div>);
             break;
         }
       }

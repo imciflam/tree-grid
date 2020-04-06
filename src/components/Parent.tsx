@@ -5,22 +5,24 @@ import Attribute from "./Attribute";
 export class Parent extends Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: false };
   }
 
   renderCurrent = (data: any) => {
-    if (data && data.length !== 0) {
+    if (data) {
       let result = [];
-      for (let element in data) {
+      for (const [index, [element, value]] of Object.entries(
+        Object.entries(data)
+      )) {
         switch (element) {
           case "Parent":
-            result.push(<Parent data={data[element]} />); // bracket notation, because it's variable
+            result.push(<Parent data={value} key={index} />);
             break;
           case "Child":
-            result.push(<Children data={data[element]} />);
+            result.push(<Children data={value} key={index} />);
             break;
           case "Attribute":
-            result.push(<Attribute data={data[element]} />);
+            result.push(<Attribute data={value} key={index} />);
             break;
           default:
             result.push(<div>unknown</div>);
@@ -32,7 +34,7 @@ export class Parent extends Component<any, any> {
   };
 
   onClick = (name: string) => {
-    if (this.state.data.length === 0) {
+    if (!this.state.data) {
       let entity = localStorage.getItem(name);
       if (!entity) {
         import(`../${name}`)
@@ -54,7 +56,7 @@ export class Parent extends Component<any, any> {
         this.setState({ data: childrenData });
       }
     } else {
-      this.setState({ data: [] });
+      this.setState({ data: false });
     }
   };
 
@@ -64,9 +66,7 @@ export class Parent extends Component<any, any> {
         <div
           className={
             "parent-item " +
-            (this.state.data.length !== 0
-              ? "parent-item--open"
-              : "parent-item--closed")
+            (this.state.data ? "parent-item--open" : "parent-item--closed")
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {

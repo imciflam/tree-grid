@@ -5,7 +5,6 @@ export class Attribute extends Component<any, {}> {
     console.log("Attribute Mount");
   }
   render() {
-    console.log(this.props);
     return (
       <div
         style={{ marginLeft: this.props.margin }}

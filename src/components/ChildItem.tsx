@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Children from "./Children";
 import Attribute from "./Attribute";
 import Parent from "./Parent";
 import "./styles/App.css";
@@ -34,15 +33,16 @@ export class ChildItem extends Component<any, any> implements storeInterface {
             );
             break;
           case "Child":
-            result.push(
-              <Children
-                data={value}
-                margin={marginData}
-                key={index}
-                globalStore={this.props.globalStore}
-                parentCallback={this.props.parentCallback}
-              />
-            );
+            (value as []).forEach((element: object) => {
+              result.push(
+                <ChildItem
+                  {...element}
+                  globalStore={this.props.globalStore}
+                  parentCallback={this.props.parentCallback}
+                  margin={marginData}
+                />
+              );
+            });
             break;
           case "Attribute":
             (value as []).forEach((element: object) => {
@@ -106,7 +106,9 @@ export class ChildItem extends Component<any, any> implements storeInterface {
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {
-            this.onClick(this.props._Type);
+            this.onClick(
+              this.props._Type.substring(6, this.props._Type.length)
+            );
           }}
         >
           <i>{this.props._Description}</i>

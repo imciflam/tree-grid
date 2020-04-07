@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Children from "./Children";
 import Attribute from "./Attribute";
 import storeInterface from "./storeInterface";
+import ChildItem from "./ChildItem";
 
 interface myState {
   data: boolean | object;
@@ -35,14 +35,15 @@ export class Parent extends Component<any, myState> implements storeInterface {
             );
             break;
           case "Child":
-            result.push(
-              <Children
-                data={value}
-                key={index}
-                globalStore={this.props.globalStore}
-                parentCallback={this.props.parentCallback}
-              />
-            );
+            (value as []).forEach((element: object) => {
+              result.push(
+                <ChildItem
+                  {...element}
+                  globalStore={this.props.globalStore}
+                  parentCallback={this.props.parentCallback}
+                />
+              );
+            });
             break;
           case "Attribute":
             (value as []).forEach((element: object) => {

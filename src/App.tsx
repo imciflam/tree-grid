@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Attribute from "./components/Attribute";
-import Children from "./components/Children";
 import Parent from "./components/Parent";
 import ChildItem from "./components/ChildItem";
 import storeInterface from "./components/storeInterface";
@@ -36,15 +35,16 @@ export class App extends Component<{}, any> implements storeInterface {
             );
             break;
           case "Child":
-            // @ts-ignore
-            result.push(
-              <Children
-                data={value}
-                key={index}
-                globalStore={this.state.globalStore}
-                parentCallback={this.callbackFunction}
-              />
-            );
+            console.log(value);
+            (value as []).forEach((element: object) => {
+              result.push(
+                <ChildItem
+                  {...element}
+                  globalStore={this.state.globalStore}
+                  parentCallback={this.callbackFunction}
+                />
+              );
+            });
             break;
           case "Attribute":
             (value as []).forEach((element: object) => {

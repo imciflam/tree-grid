@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Attribute from "./components/Attribute";
 import Children from "./components/Children";
 import Parent from "./components/Parent";
+import ChildItem from "./components/ChildItem";
 import storeInterface from "./components/storeInterface";
 import globalStoreObject from "./components/globalStoreObject";
 
@@ -35,6 +36,7 @@ export class App extends Component<{}, any> implements storeInterface {
             );
             break;
           case "Child":
+            // @ts-ignore
             result.push(
               <Children
                 data={value}
@@ -45,7 +47,9 @@ export class App extends Component<{}, any> implements storeInterface {
             );
             break;
           case "Attribute":
-            result.push(<Attribute data={value} key={index} />);
+            (value as []).forEach((element: object) => {
+              result.push(<Attribute {...element} />);
+            });
             break;
           default:
             break;

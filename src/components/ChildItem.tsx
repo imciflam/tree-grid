@@ -11,6 +11,10 @@ export class ChildItem extends Component<any, any> implements storeInterface {
     this.state = { data: false, order: 0 };
   }
 
+  componentDidMount() {
+    console.log("ChildItem Mount");
+  }
+
   renderCurrent = (data: any, marginData: number) => {
     if (data && marginData) {
       const result = [];
@@ -41,9 +45,9 @@ export class ChildItem extends Component<any, any> implements storeInterface {
             );
             break;
           case "Attribute":
-            result.push(
-              <Attribute data={value} margin={marginData} key={index} />
-            );
+            (value as []).forEach((element: object) => {
+              result.push(<Attribute {...element} margin={marginData} />);
+            });
             break;
           default:
             result.push(<React.Fragment>unknown</React.Fragment>);

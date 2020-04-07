@@ -13,6 +13,10 @@ export class Parent extends Component<any, myState> implements storeInterface {
     this.state = { data: false };
   }
 
+  componentDidMount() {
+    console.log("Parent Mount");
+  }
+
   renderCurrent = (data: any) => {
     if (data) {
       const result = [];

@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import ChildItem from "./ChildItem";
 
 export class Children extends Component<any, {}> {
+  componentDidMount() {
+    console.log("Children Mount");
+  }
+
   renderCurrent = (data: any, margin: number) => {
     const result = [];
     if (data) {

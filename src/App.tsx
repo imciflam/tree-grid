@@ -40,7 +40,6 @@ export class App extends Component<{}, any> implements storeInterface {
         GENERIC_REPORT.Entity._Name,
         JSON.stringify(GENERIC_REPORT.Entity)
       );
-      this.setState({ data: GENERIC_REPORT.Entity });
     });
   };
 

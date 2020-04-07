@@ -72,7 +72,6 @@ export class Parent extends Component<any, myState> implements storeInterface {
     if (!entity) {
       return false;
     } else {
-      console.log("found cached");
       const parsedData = JSON.parse(entity);
       return parsedData.Fields;
     }

@@ -85,7 +85,6 @@ export class App extends Component<{}, any> implements storeInterface {
   }
 
   render() {
-    console.log(this.state);
     return (
       <React.Fragment>{this.renderCurrent(this.state.data)}</React.Fragment>
     );

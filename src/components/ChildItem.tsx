@@ -20,12 +20,24 @@ export class ChildItem extends Component<any, any> implements storeInterface {
         switch (element) {
           case "Parent":
             result.push(
-              <Parent data={value} margin={marginData} key={index} />
+              <Parent
+                data={value}
+                margin={marginData}
+                key={index}
+                globalStore={this.props.globalStore}
+                parentCallback={this.props.parentCallback}
+              />
             );
             break;
           case "Child":
             result.push(
-              <Children data={value} margin={marginData} key={index} />
+              <Children
+                data={value}
+                margin={marginData}
+                key={index}
+                globalStore={this.props.globalStore}
+                parentCallback={this.props.parentCallback}
+              />
             );
             break;
           case "Attribute":
@@ -45,10 +57,9 @@ export class ChildItem extends Component<any, any> implements storeInterface {
   fetchEntity(filename: string) {
     import(`../${filename}`)
       .then(response => {
-        localStorage.setItem(
-          response.Entity._Name,
-          JSON.stringify(response.Entity)
-        );
+        const entityName = JSON.stringify(response.Entity._Name);
+        const entityData = JSON.stringify(response.Entity);
+        this.props.parentCallback(entityName, entityData);
         this.setState({ data: response.Entity.Fields });
       })
       .catch(error => {
@@ -58,11 +69,12 @@ export class ChildItem extends Component<any, any> implements storeInterface {
   }
 
   checkForCachedEntity(entityName: string) {
-    let entity = localStorage.getItem(entityName);
+    const stringEntityName = JSON.stringify(entityName);
+    const entity = this.props.globalStore[stringEntityName];
     if (!entity) {
       return false;
     } else {
-      let parsedData = JSON.parse(entity);
+      const parsedData = JSON.parse(entity);
       return parsedData.Fields;
     }
   }

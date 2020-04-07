@@ -6,8 +6,14 @@ import storeInterface from "./components/storeInterface";
 export class App extends Component<{}, any> implements storeInterface {
   constructor(props: any) {
     super(props);
-    this.state = { data: false };
+    this.state = { data: false, globalStore: {} };
   }
+
+  callbackFunction = (childName: string, childData: string) => {
+    const globalStore = { ...this.state.globalStore };
+    globalStore[childName] = childData;
+    this.setState({ globalStore });
+  };
 
   renderCurrent = (data: any) => {
     if (data) {
@@ -17,10 +23,24 @@ export class App extends Component<{}, any> implements storeInterface {
       )) {
         switch (element) {
           case "Parent":
-            result.push(<Parent data={value} key={index} />); // bracket notation, because it's a variable
+            result.push(
+              <Parent
+                data={value}
+                key={index}
+                globalStore={this.state.globalStore}
+                parentCallback={this.callbackFunction}
+              />
+            );
             break;
           case "Child":
-            result.push(<Children data={value} key={index} />);
+            result.push(
+              <Children
+                data={value}
+                key={index}
+                globalStore={this.state.globalStore}
+                parentCallback={this.callbackFunction}
+              />
+            );
             break;
           case "Attribute":
             result.push(<Attribute data={value} key={index} />);
@@ -36,20 +56,21 @@ export class App extends Component<{}, any> implements storeInterface {
   fetchEntity = (filename: string) => {
     import(`${filename}`).then(GENERIC_REPORT => {
       this.setState({ data: GENERIC_REPORT.Entity.Fields });
-      localStorage.setItem(
-        GENERIC_REPORT.Entity._Name,
-        JSON.stringify(GENERIC_REPORT.Entity)
-      );
-      this.setState({ data: GENERIC_REPORT.Entity });
+      const entityName = JSON.stringify(GENERIC_REPORT["Entity"]["_Name"]);
+      const entityData = JSON.stringify(GENERIC_REPORT.Entity);
+      const globalStore = { ...this.state.globalStore };
+      globalStore[entityName] = entityData;
+      this.setState({ globalStore });
     });
   };
 
   checkForCachedEntity = (entityName: string) => {
-    let entity = localStorage.getItem(entityName);
+    const stringEntityName = JSON.stringify(entityName);
+    const entity = this.state.globalStore[stringEntityName];
     if (!entity) {
       return false;
     } else {
-      let parsedData = JSON.parse(entity);
+      const parsedData = JSON.parse(entity);
       return parsedData.Fields;
     }
   };
@@ -64,6 +85,7 @@ export class App extends Component<{}, any> implements storeInterface {
   }
 
   render() {
+    console.log(this.state);
     return (
       <React.Fragment>{this.renderCurrent(this.state.data)}</React.Fragment>
     );

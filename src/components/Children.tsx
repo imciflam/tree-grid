@@ -12,6 +12,8 @@ export class Children extends Component<any, {}> {
             _Description={element._Description}
             _Type={element._Type.substring(6, element._Type.length)}
             margin={margin}
+            globalStore={this.props.globalStore}
+            parentCallback={this.props.parentCallback}
           ></ChildItem>
         );
       }

@@ -15,16 +15,30 @@ export class Parent extends Component<any, myState> implements storeInterface {
 
   renderCurrent = (data: any) => {
     if (data) {
-      let result = [];
+      const result = [];
       for (const [index, [element, value]] of Object.entries(
         Object.entries(data)
       )) {
         switch (element) {
           case "Parent":
-            result.push(<Parent data={value} key={index} />);
+            result.push(
+              <Parent
+                data={value}
+                key={index}
+                globalStore={this.props.globalStore}
+                parentCallback={this.props.parentCallback}
+              />
+            );
             break;
           case "Child":
-            result.push(<Children data={value} key={index} />);
+            result.push(
+              <Children
+                data={value}
+                key={index}
+                globalStore={this.props.globalStore}
+                parentCallback={this.props.parentCallback}
+              />
+            );
             break;
           case "Attribute":
             result.push(<Attribute data={value} key={index} />);
@@ -41,10 +55,9 @@ export class Parent extends Component<any, myState> implements storeInterface {
   fetchEntity(filename: string) {
     import(`../${filename}`)
       .then(response => {
-        localStorage.setItem(
-          response.Entity._Name,
-          JSON.stringify(response.Entity)
-        );
+        const entityName = JSON.stringify(response.Entity._Name);
+        const entityData = JSON.stringify(response.Entity);
+        this.props.parentCallback(entityName, entityData);
         this.setState({ data: response.Entity.Fields });
       })
       .catch(error => {
@@ -54,11 +67,13 @@ export class Parent extends Component<any, myState> implements storeInterface {
   }
 
   checkForCachedEntity(entityName: string) {
-    let entity = localStorage.getItem(entityName);
+    const stringEntityName = JSON.stringify(entityName);
+    const entity = this.props.globalStore[stringEntityName];
     if (!entity) {
       return false;
     } else {
-      let parsedData = JSON.parse(entity);
+      console.log("found cached");
+      const parsedData = JSON.parse(entity);
       return parsedData.Fields;
     }
   }

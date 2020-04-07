@@ -7,7 +7,6 @@ export class App extends Component<{}, any> implements storeInterface {
   constructor(props: any) {
     super(props);
     this.state = { data: false };
-    this.getEntity = this.getEntity.bind(this);
   }
 
   renderCurrent = (data: any) => {
@@ -34,19 +33,34 @@ export class App extends Component<{}, any> implements storeInterface {
     }
   };
 
-  getEntity = (filename: string) => {
+  fetchEntity = (filename: string) => {
     import(`${filename}`).then(GENERIC_REPORT => {
-      console.log(GENERIC_REPORT);
       this.setState({ data: GENERIC_REPORT.Entity.Fields });
       localStorage.setItem(
         GENERIC_REPORT.Entity._Name,
         JSON.stringify(GENERIC_REPORT.Entity)
       );
+      this.setState({ data: GENERIC_REPORT.Entity });
     });
   };
 
+  checkForCachedEntity = (entityName: string) => {
+    let entity = localStorage.getItem(entityName);
+    if (!entity) {
+      return false;
+    } else {
+      let parsedData = JSON.parse(entity);
+      return parsedData.Fields;
+    }
+  };
+
   public componentDidMount() {
-    this.getEntity("./GENERIC_REPORT.json");
+    const result = this.checkForCachedEntity("GENERIC_REPORT");
+    if (!result) {
+      this.fetchEntity("./GENERIC_REPORT.json");
+    } else {
+      this.setState({ data: result });
+    }
   }
 
   render() {

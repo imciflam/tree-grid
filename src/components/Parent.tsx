@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Children from "./Children";
 import Attribute from "./Attribute";
+import storeInterface from "./storeInterface";
 
 interface myState {
   data: boolean | object;
 }
 
-export class Parent extends Component<any, myState> {
+export class Parent extends Component<any, myState> implements storeInterface {
   constructor(props: any) {
     super(props);
     this.state = { data: false };
@@ -37,27 +38,38 @@ export class Parent extends Component<any, myState> {
     }
   };
 
+  fetchEntity(filename: string) {
+    import(`../${filename}`)
+      .then(response => {
+        localStorage.setItem(
+          response.Entity._Name,
+          JSON.stringify(response.Entity)
+        );
+        this.setState({ data: response.Entity.Fields });
+      })
+      .catch(error => {
+        console.log(error);
+        alert("no data for this entity");
+      });
+  }
+
+  checkForCachedEntity(entityName: string) {
+    let entity = localStorage.getItem(entityName);
+    if (!entity) {
+      return false;
+    } else {
+      let parsedData = JSON.parse(entity);
+      return parsedData.Fields;
+    }
+  }
+
   onClick = (name: string) => {
     if (!this.state.data) {
-      let entity = localStorage.getItem(name);
-      if (!entity) {
-        import(`../${name}`)
-          .then(response => {
-            localStorage.setItem(
-              response.Entity._Name,
-              JSON.stringify(response.Entity)
-            );
-            entity = localStorage.getItem(name);
-          })
-          .catch(error => {
-            console.log(error);
-            alert("no data for this entity");
-          });
-      }
-      if (entity !== null) {
-        let parsedData = JSON.parse(entity);
-        let childrenData = parsedData.Fields;
-        this.setState({ data: childrenData });
+      const result = this.checkForCachedEntity(name);
+      if (!result) {
+        this.fetchEntity(name);
+      } else {
+        this.setState({ data: result });
       }
     } else {
       this.setState({ data: false });
@@ -79,7 +91,7 @@ export class Parent extends Component<any, myState> {
         >
           {this.props.data._Description}
         </div>
-        <div style={{ marginLeft: "21px" }}>
+        <div style={{ marginLeft: "20px" }}>
           {this.renderCurrent(this.state.data)}
         </div>
       </React.Fragment>

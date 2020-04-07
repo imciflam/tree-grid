@@ -3,8 +3,9 @@ import Children from "./Children";
 import Attribute from "./Attribute";
 import Parent from "./Parent";
 import "./styles/App.css";
+import storeInterface from "./storeInterface";
 
-export class ChildItem extends Component<any, any> {
+export class ChildItem extends Component<any, any> implements storeInterface {
   constructor(props: any) {
     super(props);
     this.state = { data: false, order: 0 };
@@ -41,27 +42,38 @@ export class ChildItem extends Component<any, any> {
     }
   };
 
-  onClick = (name: string, order: number) => {
+  fetchEntity(filename: string) {
+    import(`../${filename}`)
+      .then(response => {
+        localStorage.setItem(
+          response.Entity._Name,
+          JSON.stringify(response.Entity)
+        );
+        this.setState({ data: response.Entity.Fields });
+      })
+      .catch(error => {
+        console.log(error);
+        alert("no data for this entity");
+      });
+  }
+
+  checkForCachedEntity(entityName: string) {
+    let entity = localStorage.getItem(entityName);
+    if (!entity) {
+      return false;
+    } else {
+      let parsedData = JSON.parse(entity);
+      return parsedData.Fields;
+    }
+  }
+
+  onClick = (name: string) => {
     if (!this.state.data) {
-      let entity = localStorage.getItem(name);
-      if (!entity) {
-        import(`../${name}`)
-          .then(response => {
-            localStorage.setItem(
-              response.Entity._Name,
-              JSON.stringify(response.Entity)
-            );
-            entity = localStorage.getItem(name);
-          })
-          .catch(error => {
-            console.log(error);
-            alert("no data for this entity");
-          });
-      }
-      if (entity !== null) {
-        let parsedData = JSON.parse(entity);
-        let childrenData = parsedData.Fields;
-        this.setState({ data: childrenData, order: order + 1 });
+      const result = this.checkForCachedEntity(name);
+      if (!result) {
+        this.fetchEntity(name);
+      } else {
+        this.setState({ data: result });
       }
     } else {
       this.setState({ data: false });
@@ -78,7 +90,7 @@ export class ChildItem extends Component<any, any> {
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {
-            this.onClick(this.props._Type, this.state.order);
+            this.onClick(this.props._Type);
           }}
         >
           <i>{this.props._Description}</i>

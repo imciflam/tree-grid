@@ -45,7 +45,9 @@ export class Parent extends Component<any, myState> implements storeInterface {
             );
             break;
           case "Attribute":
-            result.push(<Attribute data={value} key={index} />);
+            (value as []).forEach((element: object) => {
+              result.push(<Attribute {...element} />);
+            });
             break;
           default:
             result.push(<div>unknown</div>);

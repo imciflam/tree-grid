@@ -1,0 +1,2 @@
+(this["webpackJsonptree-grid"]=this["webpackJsonptree-grid"]||[]).push([[2],{15:function(e,t,n){"use strict";n.r(t);var r=n(0),a=n.n(r),c=n(198),i=n(10);test("renders learn react link",(function(){var e=(0,Object(c.a)(a.a.createElement(i.default,null)).getByText)(/learn react/i);expect(e).toBeInTheDocument()}))}}]);
+//# sourceMappingURL=2.d3462a2e.chunk.js.map

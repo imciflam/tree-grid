@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import Children from "./Children";
 import Attribute from "./Attribute";
 
-export class Parent extends Component<any, any> {
+interface myState {
+  data: boolean | object;
+}
+
+export class Parent extends Component<any, myState> {
   constructor(props: any) {
     super(props);
     this.state = { data: false };

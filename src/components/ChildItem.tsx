@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Children from "./Children";
 import Attribute from "./Attribute";
 import Parent from "./Parent";
-import "./App.css";
+import "./styles/App.css";
 
 export class ChildItem extends Component<any, any> {
   constructor(props: any) {

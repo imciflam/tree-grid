@@ -3,10 +3,12 @@ import Attribute from "./components/Attribute";
 import Children from "./components/Children";
 import Parent from "./components/Parent";
 import storeInterface from "./components/storeInterface";
+import globalStoreObject from "./components/globalStoreObject";
+
 export class App extends Component<{}, any> implements storeInterface {
   constructor(props: any) {
     super(props);
-    this.state = { data: false, globalStore: {} };
+    this.state = { data: false, globalStore: globalStoreObject };
   }
 
   callbackFunction = (childName: string, childData: string) => {

@@ -112,7 +112,13 @@ export class Parent extends Component<any, myState> implements storeInterface {
         >
           {this.props.data._Description}
         </div>
-        <div style={{ marginLeft: "20px" }}>
+        <div
+          style={
+            this.props.margin
+              ? { marginLeft: this.props.margin * 2 }
+              : { marginLeft: 0 }
+          }
+        >
           {this.renderCurrent(this.state.data)}
         </div>
       </React.Fragment>

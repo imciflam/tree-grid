@@ -35,7 +35,6 @@ export class App extends Component<{}, any> implements storeInterface {
             );
             break;
           case "Child":
-            console.log(value);
             (value as []).forEach((element: object) => {
               result.push(
                 <ChildItem

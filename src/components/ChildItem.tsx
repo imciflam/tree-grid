@@ -99,7 +99,6 @@ export class ChildItem extends Component<any, any> implements storeInterface {
   };
 
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
         <div
@@ -114,7 +113,7 @@ export class ChildItem extends Component<any, any> implements storeInterface {
             );
           }}
         >
-          <i>{this.props._Description}</i>
+          {this.props._Description}
         </div>
         <div style={this.props.margin && { marginLeft: 10 }}>
           {this.renderCurrent(this.state.data, 10)}

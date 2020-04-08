@@ -96,7 +96,6 @@ export class Parent extends Component<any, any> implements storeInterface {
   };
 
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
         <div
@@ -106,7 +105,9 @@ export class Parent extends Component<any, any> implements storeInterface {
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {
-            this.onClick(this.props._Name);
+            this.onClick(
+              this.props._Type.substring(6, this.props._Type.length)
+            );
           }}
         >
           {this.props._Description}

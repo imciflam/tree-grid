@@ -7,7 +7,7 @@ import storeInterface from "./storeInterface";
 export class ChildItem extends Component<any, any> implements storeInterface {
   constructor(props: any) {
     super(props);
-    this.state = { data: false, order: 0 };
+    this.state = { data: false };
   }
 
   componentDidMount() {
@@ -22,15 +22,17 @@ export class ChildItem extends Component<any, any> implements storeInterface {
       )) {
         switch (element) {
           case "Parent":
-            result.push(
-              <Parent
-                data={value}
-                margin={marginData}
-                key={index}
-                globalStore={this.props.globalStore}
-                parentCallback={this.props.parentCallback}
-              />
-            );
+            if (typeof value === "object") {
+              result.push(
+                <Parent
+                  {...value}
+                  key={index}
+                  globalStore={this.props.globalStore}
+                  parentCallback={this.props.parentCallback}
+                  margin={marginData}
+                />
+              );
+            }
             break;
           case "Child":
             (value as []).forEach((element: object) => {
@@ -97,6 +99,7 @@ export class ChildItem extends Component<any, any> implements storeInterface {
   };
 
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <div
@@ -113,8 +116,8 @@ export class ChildItem extends Component<any, any> implements storeInterface {
         >
           <i>{this.props._Description}</i>
         </div>
-        <div style={{ marginLeft: this.props.margin }}>
-          {this.renderCurrent(this.state.data, this.state.order + 10)}
+        <div style={this.props.margin && { marginLeft: 10 }}>
+          {this.renderCurrent(this.state.data, 10)}
         </div>
       </React.Fragment>
     );

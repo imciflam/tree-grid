@@ -3,11 +3,7 @@ import Attribute from "./Attribute";
 import storeInterface from "./storeInterface";
 import ChildItem from "./ChildItem";
 
-interface myState {
-  data: boolean | object;
-}
-
-export class Parent extends Component<any, myState> implements storeInterface {
+export class Parent extends Component<any, any> implements storeInterface {
   constructor(props: any) {
     super(props);
     this.state = { data: false };
@@ -25,14 +21,16 @@ export class Parent extends Component<any, myState> implements storeInterface {
       )) {
         switch (element) {
           case "Parent":
-            result.push(
-              <Parent
-                data={value}
-                key={index}
-                globalStore={this.props.globalStore}
-                parentCallback={this.props.parentCallback}
-              />
-            );
+            if (typeof value === "object") {
+              result.push(
+                <Parent
+                  {...value}
+                  key={index}
+                  globalStore={this.props.globalStore}
+                  parentCallback={this.props.parentCallback}
+                />
+              );
+            }
             break;
           case "Child":
             (value as []).forEach((element: object) => {
@@ -51,7 +49,7 @@ export class Parent extends Component<any, myState> implements storeInterface {
             });
             break;
           default:
-            result.push(<div>unknown</div>);
+            result.push(<React.Fragment>unknown</React.Fragment>);
             break;
         }
       }
@@ -98,6 +96,7 @@ export class Parent extends Component<any, myState> implements storeInterface {
   };
 
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <div
@@ -107,18 +106,12 @@ export class Parent extends Component<any, myState> implements storeInterface {
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {
-            this.onClick(this.props.data._Name);
+            this.onClick(this.props._Name);
           }}
         >
-          {this.props.data._Description}
+          {this.props._Description}
         </div>
-        <div
-          style={
-            this.props.margin
-              ? { marginLeft: this.props.margin * 2 }
-              : { marginLeft: 0 }
-          }
-        >
+        <div style={this.props.margin && { marginLeft: this.props.margin * 2 }}>
           {this.renderCurrent(this.state.data)}
         </div>
       </React.Fragment>

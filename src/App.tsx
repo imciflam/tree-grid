@@ -25,14 +25,16 @@ export class App extends Component<{}, any> implements storeInterface {
       )) {
         switch (element) {
           case "Parent":
-            result.push(
-              <Parent
-                data={value}
-                key={index}
-                globalStore={this.state.globalStore}
-                parentCallback={this.callbackFunction}
-              />
-            );
+            if (typeof value === "object") {
+              result.push(
+                <Parent
+                  {...value}
+                  key={index}
+                  globalStore={this.state.globalStore}
+                  parentCallback={this.callbackFunction}
+                />
+              );
+            }
             break;
           case "Child":
             (value as []).forEach((element: object) => {

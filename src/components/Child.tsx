@@ -26,6 +26,7 @@ export class Child extends Component<any, any> implements storeInterface {
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
                   margin={marginData}
+                  componentType="parent"
                 />
               );
             }
@@ -38,6 +39,7 @@ export class Child extends Component<any, any> implements storeInterface {
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
                   margin={marginData}
+                  componentType="child"
                 />
               );
             });
@@ -95,12 +97,16 @@ export class Child extends Component<any, any> implements storeInterface {
   };
 
   render() {
+    console.log(this.props.componentType);
     return (
       <React.Fragment>
         <div
-          className={
-            "child " + (this.state.data ? "child--open" : "child--closed")
-          }
+          className={`${this.props.componentType} 
+            ${
+              this.state.data
+                ? `${this.props.componentType}--open`
+                : `${this.props.componentType}--closed`
+            }`}
           style={{ marginLeft: this.props.margin }}
           onClick={() => {
             this.onClick(

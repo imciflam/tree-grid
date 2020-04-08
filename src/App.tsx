@@ -31,6 +31,7 @@ export class App extends Component<{}, any> implements storeInterface {
                 key={index}
                 globalStore={this.state.globalStore}
                 parentCallback={this.callbackFunction}
+                componentType="parent"
               />
             );
           }
@@ -41,6 +42,7 @@ export class App extends Component<{}, any> implements storeInterface {
                 {...element}
                 globalStore={this.state.globalStore}
                 parentCallback={this.callbackFunction}
+                componentType="child"
               />
             );
           });

@@ -9,10 +9,31 @@ export class App extends Component<{}, any> implements storeInterface {
     this.state = { data: false, globalStore: globalStoreObject };
   }
 
-  callbackFunction = (childName: string, childData: string) => {
+  addToGlobalStore = (childName: string, childData: string) => {
+    // making a copy and modifying a state object
     const globalStore = { ...this.state.globalStore };
     globalStore[childName] = childData;
     this.setState({ globalStore });
+  };
+
+  getFromGlobalStore = (entityName: string) => {
+    const stringEntityName = JSON.stringify(entityName);
+    const entity = this.state.globalStore[stringEntityName];
+    if (!entity) {
+      return false;
+    } else {
+      const parsedData = JSON.parse(entity);
+      return parsedData.Fields;
+    }
+  };
+
+  fetchEntity = (filename: string) => {
+    import(`${filename}`).then(response => {
+      this.setState({ data: response.Entity.Fields });
+      const entityName = JSON.stringify(response["Entity"]["_Name"]);
+      const entityData = JSON.stringify(response.Entity);
+      this.addToGlobalStore(entityName, entityData);
+    });
   };
 
   renderCurrent = (data: any) => {
@@ -25,7 +46,8 @@ export class App extends Component<{}, any> implements storeInterface {
               <TreeNode
                 {...value}
                 globalStore={this.state.globalStore}
-                parentCallback={this.callbackFunction}
+                addToGlobalStore={this.addToGlobalStore}
+                getFromGlobalStore={this.getFromGlobalStore}
                 componentType="parent"
               />
             );
@@ -36,7 +58,8 @@ export class App extends Component<{}, any> implements storeInterface {
               <TreeNode
                 {...element}
                 globalStore={this.state.globalStore}
-                parentCallback={this.callbackFunction}
+                addToGlobalStore={this.addToGlobalStore}
+                getFromGlobalStore={this.getFromGlobalStore}
                 componentType="child"
               />
             );
@@ -51,30 +74,8 @@ export class App extends Component<{}, any> implements storeInterface {
     }
   };
 
-  fetchEntity = (filename: string) => {
-    import(`${filename}`).then(GENERIC_REPORT => {
-      this.setState({ data: GENERIC_REPORT.Entity.Fields });
-      const entityName = JSON.stringify(GENERIC_REPORT["Entity"]["_Name"]);
-      const entityData = JSON.stringify(GENERIC_REPORT.Entity);
-      const globalStore = { ...this.state.globalStore };
-      globalStore[entityName] = entityData;
-      this.setState({ globalStore });
-    });
-  };
-
-  checkForCachedEntity = (entityName: string) => {
-    const stringEntityName = JSON.stringify(entityName);
-    const entity = this.state.globalStore[stringEntityName];
-    if (!entity) {
-      return false;
-    } else {
-      const parsedData = JSON.parse(entity);
-      return parsedData.Fields;
-    }
-  };
-
   public componentDidMount() {
-    const result = this.checkForCachedEntity("GENERIC_REPORT");
+    const result = this.getFromGlobalStore("GENERIC_REPORT");
     if (!result) {
       this.fetchEntity("./GENERIC_REPORT.json");
     } else {

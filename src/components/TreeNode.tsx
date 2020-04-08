@@ -8,6 +8,20 @@ export class TreeNode extends Component<any, any> implements storeInterface {
     this.state = { data: false };
   }
 
+  fetchEntity(filename: string) {
+    import(`../${filename}`)
+      .then(response => {
+        const entityName = JSON.stringify(response.Entity._Name);
+        const entityData = JSON.stringify(response.Entity);
+        this.props.addToGlobalStore(entityName, entityData);
+        this.setState({ data: response.Entity.Fields });
+      })
+      .catch(error => {
+        console.log(error);
+        alert("no data for this entity");
+      });
+  }
+
   renderCurrent = (data: any, marginData: number) => {
     if (data && marginData) {
       const result = [];
@@ -20,7 +34,8 @@ export class TreeNode extends Component<any, any> implements storeInterface {
                   {...value}
                   key={this.props._Index}
                   globalStore={this.props.globalStore}
-                  parentCallback={this.props.parentCallback}
+                  addToGlobalStore={this.props.addToGlobalStore}
+                  getFromGlobalStore={this.props.getFromGlobalStore}
                   margin={marginData}
                   componentType="parent"
                 />
@@ -34,7 +49,8 @@ export class TreeNode extends Component<any, any> implements storeInterface {
                   {...element}
                   key={this.props._Index}
                   globalStore={this.props.globalStore}
-                  parentCallback={this.props.parentCallback}
+                  addToGlobalStore={this.props.addToGlobalStore}
+                  getFromGlobalStore={this.props.getFromGlobalStore}
                   margin={marginData}
                   componentType="child"
                 />
@@ -62,35 +78,10 @@ export class TreeNode extends Component<any, any> implements storeInterface {
     }
   };
 
-  fetchEntity(filename: string) {
-    import(`../${filename}`)
-      .then(response => {
-        const entityName = JSON.stringify(response.Entity._Name);
-        const entityData = JSON.stringify(response.Entity);
-        this.props.parentCallback(entityName, entityData);
-        this.setState({ data: response.Entity.Fields });
-      })
-      .catch(error => {
-        console.log(error);
-        alert("no data for this entity");
-      });
-  }
-
-  checkForCachedEntity(entityName: string) {
-    const stringEntityName = JSON.stringify(entityName);
-    const entity = this.props.globalStore[stringEntityName];
-    if (!entity) {
-      return false;
-    } else {
-      const parsedData = JSON.parse(entity);
-      return parsedData.Fields;
-    }
-  }
-
   onClick = (name: string) => {
     if (this.props.componentType !== "attribute") {
       if (!this.state.data) {
-        const result = this.checkForCachedEntity(name);
+        const result = this.props.getFromGlobalStore(name);
         if (!result) {
           this.fetchEntity(name);
         } else {

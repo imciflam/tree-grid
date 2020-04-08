@@ -1,14 +1,14 @@
-.child-item {
+.child {
   border: 1px solid black;
   padding: 10px;
 }
 
-.child-item--open::before {
+.child--open::before {
   content: url(../img/minus.svg);
   padding-right: 5px;
 }
 
-.child-item--closed::before {
+.child--closed::before {
   content: url(../img/plus.svg);
   padding-right: 5px;
 }

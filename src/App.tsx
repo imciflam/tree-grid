@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Attribute from "./components/Attribute";
 import Parent from "./components/Parent";
-import ChildItem from "./components/ChildItem";
+import Child from "./components/Child";
 import storeInterface from "./components/storeInterface";
 import globalStoreObject from "./components/globalStoreObject";
 
@@ -39,7 +39,7 @@ export class App extends Component<{}, any> implements storeInterface {
           case "Child":
             (value as []).forEach((element: object) => {
               result.push(
-                <ChildItem
+                <Child
                   {...element}
                   globalStore={this.state.globalStore}
                   parentCallback={this.callbackFunction}

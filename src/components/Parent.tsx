@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Attribute from "./Attribute";
-import ChildItem from "./ChildItem";
+import Child from "./Child";
 import storeInterface from "./storeInterface";
 import "./styles/App.css";
 
@@ -8,10 +8,6 @@ export class Parent extends Component<any, any> implements storeInterface {
   constructor(props: any) {
     super(props);
     this.state = { data: false };
-  }
-
-  componentDidMount() {
-    console.log("Parent Mount");
   }
 
   renderCurrent = (data: any, marginData: number) => {
@@ -37,7 +33,7 @@ export class Parent extends Component<any, any> implements storeInterface {
           case "Child":
             (value as []).forEach((element: object) => {
               result.push(
-                <ChildItem
+                <Child
                   {...element}
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}

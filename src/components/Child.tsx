@@ -4,14 +4,10 @@ import Parent from "./Parent";
 import storeInterface from "./storeInterface";
 import "./styles/App.css";
 
-export class ChildItem extends Component<any, any> implements storeInterface {
+export class Child extends Component<any, any> implements storeInterface {
   constructor(props: any) {
     super(props);
     this.state = { data: false };
-  }
-
-  componentDidMount() {
-    console.log("ChildItem Mount");
   }
 
   renderCurrent = (data: any, marginData: number) => {
@@ -37,7 +33,7 @@ export class ChildItem extends Component<any, any> implements storeInterface {
           case "Child":
             (value as []).forEach((element: object) => {
               result.push(
-                <ChildItem
+                <Child
                   {...element}
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
@@ -103,8 +99,8 @@ export class ChildItem extends Component<any, any> implements storeInterface {
       <React.Fragment>
         <div
           className={
-            "child-item " +
-            (this.state.data ? "child-item--open" : "child-item--closed")
+            "child " +
+            (this.state.data ? "child--open" : "child--closed")
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {
@@ -123,4 +119,4 @@ export class ChildItem extends Component<any, any> implements storeInterface {
   }
 }
 
-export default ChildItem;
+export default Child;

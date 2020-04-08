@@ -18,15 +18,12 @@ export class App extends Component<{}, any> implements storeInterface {
   renderCurrent = (data: any) => {
     if (data) {
       const result = [];
-      for (const [index, [element, value]] of Object.entries(
-        Object.entries(data)
-      )) {
+      for (const [, [element, value]] of Object.entries(Object.entries(data))) {
         if (element === "Parent") {
-          if (typeof value === "object") {
+          if (typeof value === "object" && value) {
             result.push(
               <TreeNode
                 {...value}
-                key={index}
                 globalStore={this.state.globalStore}
                 parentCallback={this.callbackFunction}
                 componentType="parent"

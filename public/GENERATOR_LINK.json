@@ -39,14 +39,14 @@
       "Child": [
         {
           "_Name": "Group",
-          "_Index": "3040011",
+          "_Index": "3040022",
           "_Type": "VCLib.GROUP",
           "_Description": "Группировщик",
           "_ChildAttribute": "GeneratorLink"
         },
         {
           "_Name": "Report",
-          "_Index": "3040016",
+          "_Index": "3042016",
           "_Type": "VCLib.REPORT",
           "_Description": "Отчет",
           "_ChildAttribute": "GeneratorLink"

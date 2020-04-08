@@ -11,16 +11,14 @@ export class TreeNode extends Component<any, any> implements storeInterface {
   renderCurrent = (data: any, marginData: number) => {
     if (data && marginData) {
       const result = [];
-      for (const [index, [element, value]] of Object.entries(
-        Object.entries(data)
-      )) {
+      for (const [, [element, value]] of Object.entries(Object.entries(data))) {
         switch (element) {
           case "Parent":
             if (typeof value === "object") {
               result.push(
                 <TreeNode
                   {...value}
-                  key={index}
+                  key={this.props._Index}
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
                   margin={marginData}
@@ -34,6 +32,7 @@ export class TreeNode extends Component<any, any> implements storeInterface {
               result.push(
                 <TreeNode
                   {...element}
+                  key={this.props._Index}
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
                   margin={marginData}
@@ -47,6 +46,7 @@ export class TreeNode extends Component<any, any> implements storeInterface {
               result.push(
                 <TreeNode
                   {...element}
+                  key={this.props._Index}
                   margin={marginData}
                   componentType="attribute"
                 />
@@ -106,6 +106,7 @@ export class TreeNode extends Component<any, any> implements storeInterface {
     return (
       <React.Fragment>
         <div
+          key={this.props._Index}
           className={`${this.props.componentType} 
             ${
               this.state.data

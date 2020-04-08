@@ -99,8 +99,7 @@ export class Child extends Component<any, any> implements storeInterface {
       <React.Fragment>
         <div
           className={
-            "child " +
-            (this.state.data ? "child--open" : "child--closed")
+            "child " + (this.state.data ? "child--open" : "child--closed")
           }
           style={{ marginLeft: this.props.margin }}
           onClick={() => {

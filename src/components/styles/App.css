@@ -32,13 +32,13 @@
     brightness(103%) contrast(143%);
 }
 
-.attribute-item {
+.attribute {
   opacity: 0.8;
   border: 1px solid black;
   padding: 10px;
 }
 
-.attribute-item::before {
+.attribute::before {
   content: url(../img/button.svg);
   padding-right: 5px;
 }

@@ -23,37 +23,31 @@ export class App extends Component<{}, any> implements storeInterface {
       for (const [index, [element, value]] of Object.entries(
         Object.entries(data)
       )) {
-        switch (element) {
-          case "Parent":
-            if (typeof value === "object") {
-              result.push(
-                <Parent
-                  {...value}
-                  key={index}
-                  globalStore={this.state.globalStore}
-                  parentCallback={this.callbackFunction}
-                />
-              );
-            }
-            break;
-          case "Child":
-            (value as []).forEach((element: object) => {
-              result.push(
-                <Child
-                  {...element}
-                  globalStore={this.state.globalStore}
-                  parentCallback={this.callbackFunction}
-                />
-              );
-            });
-            break;
-          case "Attribute":
-            (value as []).forEach((element: object) => {
-              result.push(<Attribute {...element} />);
-            });
-            break;
-          default:
-            break;
+        if (element === "Parent") {
+          if (typeof value === "object") {
+            result.push(
+              <Parent
+                {...value}
+                key={index}
+                globalStore={this.state.globalStore}
+                parentCallback={this.callbackFunction}
+              />
+            );
+          }
+        } else if (element === "Child") {
+          (value as []).forEach((element: object) => {
+            result.push(
+              <Child
+                {...element}
+                globalStore={this.state.globalStore}
+                parentCallback={this.callbackFunction}
+              />
+            );
+          });
+        } else if (element === "Attribute") {
+          (value as []).forEach((element: object) => {
+            result.push(<Attribute {...element} />);
+          });
         }
       }
       return result;

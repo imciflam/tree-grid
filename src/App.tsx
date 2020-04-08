@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Attribute from "./components/Attribute";
-import Parent from "./components/Parent";
-import Child from "./components/Child";
 import storeInterface from "./components/storeInterface";
 import globalStoreObject from "./components/globalStoreObject";
+import TreeNode from "./components/TreeNode";
 
 export class App extends Component<{}, any> implements storeInterface {
   constructor(props: any) {
@@ -26,7 +25,7 @@ export class App extends Component<{}, any> implements storeInterface {
         if (element === "Parent") {
           if (typeof value === "object") {
             result.push(
-              <Parent
+              <TreeNode
                 {...value}
                 key={index}
                 globalStore={this.state.globalStore}
@@ -38,7 +37,7 @@ export class App extends Component<{}, any> implements storeInterface {
         } else if (element === "Child") {
           (value as []).forEach((element: object) => {
             result.push(
-              <Child
+              <TreeNode
                 {...element}
                 globalStore={this.state.globalStore}
                 parentCallback={this.callbackFunction}

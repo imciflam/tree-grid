@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Attribute from "./Attribute";
-import Parent from "./Parent";
 import storeInterface from "./storeInterface";
 import "./styles/App.css";
 
-export class Child extends Component<any, any> implements storeInterface {
+export class TreeNode extends Component<any, any> implements storeInterface {
   constructor(props: any) {
     super(props);
     this.state = { data: false };
@@ -20,7 +19,7 @@ export class Child extends Component<any, any> implements storeInterface {
           case "Parent":
             if (typeof value === "object") {
               result.push(
-                <Parent
+                <TreeNode
                   {...value}
                   key={index}
                   globalStore={this.props.globalStore}
@@ -34,7 +33,7 @@ export class Child extends Component<any, any> implements storeInterface {
           case "Child":
             (value as []).forEach((element: object) => {
               result.push(
-                <Child
+                <TreeNode
                   {...element}
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
@@ -97,7 +96,6 @@ export class Child extends Component<any, any> implements storeInterface {
   };
 
   render() {
-    console.log(this.props.componentType);
     return (
       <React.Fragment>
         <div
@@ -124,4 +122,4 @@ export class Child extends Component<any, any> implements storeInterface {
   }
 }
 
-export default Child;
+export default TreeNode;

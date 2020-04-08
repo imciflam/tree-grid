@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Attribute from "./Attribute";
-import storeInterface from "./storeInterface";
 import ChildItem from "./ChildItem";
+import storeInterface from "./storeInterface";
+import "./styles/App.css";
 
 export class Parent extends Component<any, any> implements storeInterface {
   constructor(props: any) {
@@ -13,8 +14,8 @@ export class Parent extends Component<any, any> implements storeInterface {
     console.log("Parent Mount");
   }
 
-  renderCurrent = (data: any) => {
-    if (data) {
+  renderCurrent = (data: any, marginData: number) => {
+    if (data && marginData) {
       const result = [];
       for (const [index, [element, value]] of Object.entries(
         Object.entries(data)
@@ -28,6 +29,7 @@ export class Parent extends Component<any, any> implements storeInterface {
                   key={index}
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
+                  margin={marginData}
                 />
               );
             }
@@ -39,13 +41,14 @@ export class Parent extends Component<any, any> implements storeInterface {
                   {...element}
                   globalStore={this.props.globalStore}
                   parentCallback={this.props.parentCallback}
+                  margin={marginData}
                 />
               );
             });
             break;
           case "Attribute":
             (value as []).forEach((element: object) => {
-              result.push(<Attribute {...element} />);
+              result.push(<Attribute {...element} margin={marginData} />);
             });
             break;
           default:
@@ -112,8 +115,8 @@ export class Parent extends Component<any, any> implements storeInterface {
         >
           {this.props._Description}
         </div>
-        <div style={this.props.margin && { marginLeft: this.props.margin * 2 }}>
-          {this.renderCurrent(this.state.data)}
+        <div style={this.props.margin && { marginLeft: 10 }}>
+          {this.renderCurrent(this.state.data, 10)}
         </div>
       </React.Fragment>
     );

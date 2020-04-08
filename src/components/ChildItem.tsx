@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Attribute from "./Attribute";
 import Parent from "./Parent";
-import "./styles/App.css";
 import storeInterface from "./storeInterface";
+import "./styles/App.css";
 
 export class ChildItem extends Component<any, any> implements storeInterface {
   constructor(props: any) {

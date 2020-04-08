@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Attribute from "./components/Attribute";
 import storeInterface from "./components/storeInterface";
 import globalStoreObject from "./components/globalStoreObject";
 import TreeNode from "./components/TreeNode";
@@ -47,7 +46,7 @@ export class App extends Component<{}, any> implements storeInterface {
           });
         } else if (element === "Attribute") {
           (value as []).forEach((element: object) => {
-            result.push(<Attribute {...element} />);
+            result.push(<TreeNode {...element} componentType="attribute" />);
           });
         }
       }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Attribute from "./Attribute";
 import storeInterface from "./storeInterface";
 import "./styles/App.css";
 
@@ -45,7 +44,13 @@ export class TreeNode extends Component<any, any> implements storeInterface {
             break;
           case "Attribute":
             (value as []).forEach((element: object) => {
-              result.push(<Attribute {...element} margin={marginData} />);
+              result.push(
+                <TreeNode
+                  {...element}
+                  margin={marginData}
+                  componentType="attribute"
+                />
+              );
             });
             break;
           default:
@@ -83,15 +88,17 @@ export class TreeNode extends Component<any, any> implements storeInterface {
   }
 
   onClick = (name: string) => {
-    if (!this.state.data) {
-      const result = this.checkForCachedEntity(name);
-      if (!result) {
-        this.fetchEntity(name);
+    if (this.props.componentType !== "attribute") {
+      if (!this.state.data) {
+        const result = this.checkForCachedEntity(name);
+        if (!result) {
+          this.fetchEntity(name);
+        } else {
+          this.setState({ data: result });
+        }
       } else {
-        this.setState({ data: result });
+        this.setState({ data: false });
       }
-    } else {
-      this.setState({ data: false });
     }
   };
 
@@ -114,9 +121,11 @@ export class TreeNode extends Component<any, any> implements storeInterface {
         >
           {this.props._Description}
         </div>
-        <div style={this.props.margin && { marginLeft: 10 }}>
-          {this.renderCurrent(this.state.data, 10)}
-        </div>
+        {this.state.data && (
+          <div style={this.props.margin && { marginLeft: 10 }}>
+            {this.renderCurrent(this.state.data, 10)}
+          </div>
+        )}
       </React.Fragment>
     );
   }

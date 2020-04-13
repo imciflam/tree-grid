@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import storeInterface from "./storeInterface";
 import "./styles/App.css";
+import globalStoreObject from "./globalStoreObject";
 
 export class TreeNode extends Component<any, any> implements storeInterface {
   constructor(props: any) {
@@ -13,7 +14,7 @@ export class TreeNode extends Component<any, any> implements storeInterface {
       .then(response => {
         const entityName = JSON.stringify(response.Entity._Name);
         const entityData = JSON.stringify(response.Entity);
-        this.props.addToGlobalStore(entityName, entityData);
+        globalStoreObject.addToGlobalStore(entityName, entityData);
         this.setState({ data: response.Entity.Fields });
       })
       .catch(error => {
@@ -34,8 +35,8 @@ export class TreeNode extends Component<any, any> implements storeInterface {
                   {...value}
                   key={this.props._Index}
                   globalStore={this.props.globalStore}
-                  addToGlobalStore={this.props.addToGlobalStore}
-                  getFromGlobalStore={this.props.getFromGlobalStore}
+                  addToGlobalStore={globalStoreObject.addToGlobalStore}
+                  getFromGlobalStore={globalStoreObject.getFromGlobalStore}
                   margin={marginData}
                   componentType="parent"
                 />
@@ -49,8 +50,8 @@ export class TreeNode extends Component<any, any> implements storeInterface {
                   {...element}
                   key={this.props._Index}
                   globalStore={this.props.globalStore}
-                  addToGlobalStore={this.props.addToGlobalStore}
-                  getFromGlobalStore={this.props.getFromGlobalStore}
+                  addToGlobalStore={globalStoreObject.addToGlobalStore}
+                  getFromGlobalStore={globalStoreObject.getFromGlobalStore}
                   margin={marginData}
                   componentType="child"
                 />
@@ -81,7 +82,7 @@ export class TreeNode extends Component<any, any> implements storeInterface {
   onClick = (name: string) => {
     if (this.props.componentType !== "attribute") {
       if (!this.state.data) {
-        const result = this.props.getFromGlobalStore(name);
+        const result = globalStoreObject.getFromGlobalStore(name);
         if (!result) {
           this.fetchEntity(name);
         } else {

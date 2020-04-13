@@ -1,8 +1,11 @@
 import React from "react";
 import Tree from "./components/Tree";
+import globalStoreObject from "./globalStoreObject";
 
-function App() {
-  return <Tree />;
+export class App extends React.Component {
+  render() {
+    return <Tree {...globalStoreObject} />;
+  }
 }
 
 export default App;

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import storeInterface from "./storeInterface";
-import globalStoreObject from "./globalStoreObject";
+import storeInterface from "../storeInterface";
 import TreeNode from "./TreeNode";
 
-export class Tree extends Component<{}, any> implements storeInterface {
+export class Tree extends Component<any, any> implements storeInterface {
   constructor(props: any) {
     super(props);
-    this.state = { data: false, globalStore: globalStoreObject };
+    this.state = { data: false };
   }
 
   fetchEntity = (filename: string) => {
@@ -14,7 +13,7 @@ export class Tree extends Component<{}, any> implements storeInterface {
       this.setState({ data: response.Entity.Fields });
       const entityName = JSON.stringify(response["Entity"]["_Name"]);
       const entityData = JSON.stringify(response.Entity);
-      globalStoreObject.addToGlobalStore(entityName, entityData);
+      this.props.addToGlobalStore(entityName, entityData);
     });
   };
 
@@ -28,8 +27,8 @@ export class Tree extends Component<{}, any> implements storeInterface {
               <TreeNode
                 {...value}
                 globalStore={this.state.globalStore}
-                addToGlobalStore={globalStoreObject.addToGlobalStore}
-                getFromGlobalStore={globalStoreObject.getFromGlobalStore}
+                addToGlobalStore={this.props.addToGlobalStore}
+                getFromGlobalStore={this.props.getFromGlobalStore}
                 componentType="parent"
               />
             );
@@ -40,8 +39,8 @@ export class Tree extends Component<{}, any> implements storeInterface {
               <TreeNode
                 {...element}
                 globalStore={this.state.globalStore}
-                addToGlobalStore={globalStoreObject.addToGlobalStore}
-                getFromGlobalStore={globalStoreObject.getFromGlobalStore}
+                addToGlobalStore={this.props.addToGlobalStore}
+                getFromGlobalStore={this.props.getFromGlobalStore}
                 componentType="child"
               />
             );
@@ -57,7 +56,7 @@ export class Tree extends Component<{}, any> implements storeInterface {
   };
 
   public componentDidMount() {
-    const result = globalStoreObject.getFromGlobalStore("GENERIC_REPORT");
+    const result = this.props.getFromGlobalStore("GENERIC_REPORT");
     if (!result) {
       this.fetchEntity("GENERIC_REPORT.json");
     } else {

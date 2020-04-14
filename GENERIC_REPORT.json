@@ -47,7 +47,7 @@
         },
         {
           "_Name": "GeneratorLinks",
-          "_Index": "3040016",
+          "_Index": "3041016",
           "_Type": "VCLib.GENERATOR_LINK",
           "_Description": "Используемые генераторы",
           "_ChildAttribute": "GenericReport"

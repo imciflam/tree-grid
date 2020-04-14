@@ -1,44 +1,44 @@
-.child-item {
+.child {
   border: 1px solid black;
   padding: 10px;
 }
 
-.child-item--open::before {
+.child--open::before {
   content: url(../img/minus.svg);
   padding-right: 5px;
 }
 
-.child-item--closed::before {
+.child--closed::before {
   content: url(../img/plus.svg);
   padding-right: 5px;
 }
 
-.parent-item {
+.parent {
   border: 1px solid black;
   padding: 10px;
 }
 
-.parent-item--open::before {
+.parent--open::before {
   content: url(../img/minus.svg);
   padding-right: 5px;
   filter: invert(7%) sepia(100%) saturate(7477%) hue-rotate(248deg)
     brightness(103%) contrast(143%);
 }
 
-.parent-item--closed::before {
+.parent--closed::before {
   content: url(../img/plus.svg);
   padding-right: 5px;
   filter: invert(7%) sepia(100%) saturate(7477%) hue-rotate(248deg)
     brightness(103%) contrast(143%);
 }
 
-.attribute-item {
+.attribute {
   opacity: 0.8;
   border: 1px solid black;
   padding: 10px;
 }
 
-.attribute-item::before {
+.attribute::before {
   content: url(../img/button.svg);
   padding-right: 5px;
 }
